@@ -39,4 +39,4 @@ TicketSphere is created and maintained by Ashwanth. As the sole contributor to t
 
 If you have any questions or encounter any issues while using TicketSphere, feel free to contact me directly at ashwanth@rajakumar.net. Your feedback is valuable and helps in enhancing TicketSphere for all users.
 
-Thank you for choosing TicketSphere. Let's make ticket resale easier and more enjoyable together! 🎟️🌟
+
