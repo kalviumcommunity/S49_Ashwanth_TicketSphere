@@ -1,0 +1,20 @@
+{
+  "name": "s49_ashwanth_capstone_ticketsphere",
+  "version": "1.0.0",
+  "description": "Welcome to TicketSphere, a user-friendly platform for buying and selling event tickets online. TicketSphere aims to provide a seamless experience for users while prioritizing security and ease of use.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "node server.js",
+    "dev" : "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
