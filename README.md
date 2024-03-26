@@ -31,12 +31,3 @@ To start using TicketSphere:
 3. **Purchase Tickets**: Buy tickets securely and smoothly through TicketSphere's platform.
 4. **Manage Listings**: Sellers can manage their listed tickets, and buyers can view purchased tickets.
 
-## About the Creator
-
-TicketSphere is created and maintained by Ashwanth. As the sole contributor to this project, I am dedicated to continuously improving TicketSphere to meet the evolving needs of the ticket resale community.
-
-## Support
-
-If you have any questions or encounter any issues while using TicketSphere, feel free to contact me directly at ashwanth@rajakumar.net. Your feedback is valuable and helps in enhancing TicketSphere for all users.
-
-
