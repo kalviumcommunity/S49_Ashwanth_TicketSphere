@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 app.get('/',(req,res)=>{
-    res.send('Wassup')
+    res.send('TicketSphere')
 })
 app.get('/tickets',(req,res)=>{
     res.send('Viewing available tickets')
