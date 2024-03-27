@@ -1,10 +1,22 @@
-const Joi = require('joi');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-// Define the schema for selling tickets
-const sellSchema = Joi.object({
-    eventName: Joi.string().required(),
-    eventLocation: Joi.string().required(),
-    price: Joi.number().positive().required()
+const sellSchema = new Schema({
+    eventName: {
+        type: String,
+        required: true
+    },
+    eventLocation: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true,
+        min: 0
+    }
 });
 
-module.exports = sellSchema;
+const Sell = mongoose.model('Sell', sellSchema);
+
+module.exports = Sell;
