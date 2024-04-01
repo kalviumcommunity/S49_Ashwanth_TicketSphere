@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose'); 
 const Joi = require('joi');
-const sellSchema = require('./models/sell');
+const Event = require('./models/event');
+const eventSchema = require('./models/event')
 require('dotenv').config(); 
 
 const app = express();
@@ -13,24 +14,38 @@ app.get('/', (req, res) => {
     res.send('TicketSphere');
 });
 
-app.get('/tickets', (req, res) => {
-    res.send('Viewing available tickets');
+app.get('/tickets', async (req, res) => {
+    try {
+        const tickets = await Event.find();
+        res.json(tickets);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
 });
 
-app.post('/sell', (req, res) => {
-    const { error } = sellSchema.validate(req.body);
-    if (error) {
-        return res.status(400).send(error.details[0].message);
+app.post('/sell', async (req, res) => {
+    try {
+        const { error } = eventSchema.validate(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
+
+        const { eventName, eventLocation, price } = req.body;
+        
+        // Create a new event instance
+        const newEvent = new Event({
+            eventName,
+            eventLocation,
+            price
+        });
+        await newEvent.save();
+
+        res.send('Ticket listed successfully');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
     }
-
-    const { eventName, eventLocation, price } = req.body;
-    const newTicket = {
-        eventName,
-        eventLocation,
-        price
-    };
-
-    res.send('Ticket listed successfully');
 });
 
 const port = 3000;
