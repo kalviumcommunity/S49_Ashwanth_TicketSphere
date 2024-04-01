@@ -33,7 +33,6 @@ app.post('/sell', async (req, res) => {
 
         const { eventName, eventLocation, price } = req.body;
         
-        // Create a new event instance
         const newEvent = new Event({
             eventName,
             eventLocation,
