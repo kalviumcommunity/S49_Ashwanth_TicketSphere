@@ -1,0 +1,51 @@
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px; 
+    background-color: #33333332; 
+  }
+  
+  .site-title {
+    font-size: 1.5rem; 
+    color: white; 
+    text-decoration: none; 
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-links > * {
+    margin-right: 10px; 
+  }
+  
+  .nav-links > *:not(:last-child) {
+    margin-right: 10px; 
+  }
+  
+  .login,
+  .sell {
+    color: white;
+  }
+  
+  .login {
+    background-color: white;
+    width: 150px;
+  }
+  
+  .sell {
+    background-color: red;
+    width: 200px;
+  }
+  
+  .login:hover,
+  .sell:hover {
+    background-color: #555; 
+  }
+  
