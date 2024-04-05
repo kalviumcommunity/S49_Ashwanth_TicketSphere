@@ -18,6 +18,7 @@ app.get('/tickets', async (req, res) => {
     try {
         const tickets = await Event.find();
         res.json(tickets);
+        console.log(tickets)
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
