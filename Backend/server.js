@@ -3,12 +3,14 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const Event = require('./models/event');
 const eventSchema = require('./models/event')
+const cors = require('cors');
 require('dotenv').config(); 
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('TicketSphere');

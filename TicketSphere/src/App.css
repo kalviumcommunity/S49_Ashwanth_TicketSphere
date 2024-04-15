@@ -40,18 +40,3 @@ body {
   margin-right: 10px; 
 }
 
-.stat-button,
-.team-button {
-  color: white;
-  background-color: black;
-  width: 150px;
-}
-
-.stat-button:hover,
-.team-button:hover {
-  background-color: #555; 
-}
-
-.card {
-  padding: 2em;
-}
