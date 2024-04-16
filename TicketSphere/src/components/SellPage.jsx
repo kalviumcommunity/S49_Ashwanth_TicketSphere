@@ -92,6 +92,7 @@ export default function SellPage() {
                 <br />
                 <button type="submit">Submit</button>
             </form>
+            <a href="/">Go home</a>
         </div>
     );
 }

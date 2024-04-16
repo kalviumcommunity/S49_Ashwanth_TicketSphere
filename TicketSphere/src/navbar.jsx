@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import "./navbar.css";
+import { UserButton } from "@clerk/clerk-react"
 
 export default function Navbar() {
     return (
@@ -16,7 +17,7 @@ export default function Navbar() {
                     className="login"
                     style={{ width: "150px", color: "black", backgroundColor: "white" }}
                     component={Link}
-                    to="/login"
+                    to="/sign-in"
                 >
                     <b>Login</b>
                 </Button>
@@ -29,6 +30,7 @@ export default function Navbar() {
                 >
                     <b>Sell your tickets!</b>
                 </Button>
+                <UserButton />
             </div>
         </nav>
     );
