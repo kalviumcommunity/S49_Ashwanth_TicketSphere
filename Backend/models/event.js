@@ -15,10 +15,10 @@ const eventSchema = new Schema({
         required: true,
         min: 0
     },
-    // poster: {
-    //     type: String, // Store the URL or path to the image
-    //     required: true
-    // }
+    poster: {
+        type: String, 
+        required: true
+    }
 });
 
 const Event = mongoose.model('Event', eventSchema);
