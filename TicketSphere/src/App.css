@@ -36,7 +36,5 @@ body {
   margin-right: 10px; 
 }
 
-.nav-links > *:not(:last-child) {
-  margin-right: 10px; 
-}
+
 
