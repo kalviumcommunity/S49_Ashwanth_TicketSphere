@@ -7,10 +7,11 @@ require('dotenv').config();
 const multer = require('multer');
 const path = require('path');
 
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.static('public'));
 app.use(cors());
 
 const storage = multer.diskStorage({
