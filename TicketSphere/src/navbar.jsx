@@ -5,6 +5,11 @@ import "./navbar.css";
 import { UserButton, SignedIn, SignedOut } from "@clerk/clerk-react";
 
 export default function Navbar() {
+    const handleAfterSignOut = () => {
+        window.location.href = "/"; 
+    };
+
+
     return (
         <nav className="nav">
             <Link to="/">
@@ -32,7 +37,7 @@ export default function Navbar() {
                 >
                     <b>Sell your tickets!</b>
                 </Button>
-                <UserButton />
+                <UserButton afterSignOut={handleAfterSignOut} />
             </div>
         </nav>
     );
