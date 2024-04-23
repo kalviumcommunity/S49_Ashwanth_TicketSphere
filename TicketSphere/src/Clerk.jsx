@@ -7,6 +7,7 @@ import {NextUIProvider} from "@nextui-org/react";
 import { ClerkProvider, RedirectToSignIn, SignIn, SignUp, SignedIn, SignedOut,Protect } from "@clerk/clerk-react";
 import SellPage from './components/SellPage.jsx';
 import {neobrutalism} from "@clerk/themes";
+import Info from "./components/Info.jsx"
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 if (!PUBLISHABLE_KEY) {
@@ -47,7 +48,11 @@ export  default function ClerkWithRoutes(){
              </SignedOut>
               </>
             }
-          />  
+          />    
+          <Route
+            path = "/info/:id"
+            element={<Info />}
+          />
         </Routes>
         
   
