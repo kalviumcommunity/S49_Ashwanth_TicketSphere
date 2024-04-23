@@ -19,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <NextUIProvider>
     <BrowserRouter>
+        
         <ClerkWithRoutes />
     </BrowserRouter>
     </NextUIProvider>

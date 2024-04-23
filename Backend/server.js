@@ -40,21 +40,6 @@ app.get('/tickets', async (req, res) => {
   }
 });
 
-app.get('/info/:eventId', async (req, res) => {
-  const eventId = req.params.eventId;
-  try {
-    const event = await Event.findById(eventId);
-    if (!event) {
-      return res.status(404).json({ message: 'Event not found' });
-    }
-    res.json(event);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server Error');
-  }
-});
-
-
 app.post('/sell', upload.single('file'), async (req, res) => {
   const newEvent = new Event({
     eventName: req.body.eventName,
@@ -66,6 +51,20 @@ app.post('/sell', upload.single('file'), async (req, res) => {
   try {
     const savedEvent = await newEvent.save();
     res.json(savedEvent);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+app.get('/info/:eventId', async (req, res) => {
+  const eventId = req.params.eventId;
+  try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+    res.json(event);
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');

@@ -35,7 +35,7 @@ export default function Navbar() {
                     component={Link}
                     to="/sellpage"
                 >
-                    <b>Sell your tickets!</b>
+                    <b>Request an event!</b>
                 </Button>
                 <UserButton afterSignOut={handleAfterSignOut} />
             </div>
