@@ -4,6 +4,7 @@ import Navbar from './navbar';
 import "./App.css"
 import SellPage from './components/SellPage';
 import Home from './components/Home';
+import Dashboard from './components/dashboard';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path = "/" element = {<Home/>} />
         <Route path="/sellpage" element={<SellPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </>
 )}

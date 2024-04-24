@@ -28,6 +28,17 @@ export default function Navbar() {
                         <b>Login</b>
                     </Button>
                 </SignedOut>
+                <SignedIn>
+                <Button
+                    variant="contained"
+                    className="sell"
+                    style={{ width: "200px", color: "white", backgroundColor: "" }}
+                    component={Link}
+                    to="/dashboard"
+                >
+                    <b>Dashboard</b>
+                </Button>
+                </SignedIn>
                 <Button
                     variant="contained"
                     className="sell"
