@@ -8,6 +8,7 @@ import { ClerkProvider, RedirectToSignIn, SignIn, SignUp, SignedIn, SignedOut,Pr
 import SellPage from './components/SellPage.jsx';
 import {neobrutalism} from "@clerk/themes";
 import Info from "./components/Info.jsx"
+import Dashboard from './components/dashboard.jsx';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 if (!PUBLISHABLE_KEY) {
@@ -53,7 +54,9 @@ export  default function ClerkWithRoutes(){
             path = "/info/:id"
             element={<Info />}
           />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
+        
         
   
       </ClerkProvider>
