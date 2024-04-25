@@ -1,21 +1,103 @@
-body{
-    color: black;
+/* Basic styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
+
+.sell-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 50px auto;
+  width: 400px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input-group input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+}
+
 .dropzone {
-    border: 2px dashed #cccccc;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-  }
-  
-  .file-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .file-item {
-    margin-top: 10px;
-    background-color: #f0f0f0;
-    padding: 5px 10px;
-    border-radius: 5px;
-  }
+  border: 2px dashed #ddd;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.dropzone p {
+  color: #aaa;
+}
+
+.preview-container {
+  margin-top: 10px;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45A049;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+  margin-top: 10px;
+}
+
+/* Funnier styling */
+
+.sell-form {
+  background-color: #f0f0f0;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group label {
+  color: #4CAF50;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+button[type="submit"] {
+  background-color: linear-gradient(to right, #9C27B0, #FF9800);
+}
+
+/* Toast styling - You can modify these further based on react-toastify docs */
+.Toastify .Toast-message {
+  font-weight: bold;
+  color: white;
+}
+
+.Toastify .Toast--success {
+  background-color: #4CAF50;
+}
+
+.Toastify .Toast--error {
+  background-color: #F44336;
+}
