@@ -19,8 +19,8 @@ The objective of TicketSphere is to address the need for a reliable and accessib
 - **Frontend**: HTML, CSS, JavaScript, React.js
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
-- **Authentication**: JSON Web Tokens (JWT)
-- **Payment Gateway Integration**: RazorPay API
+- **Authentication**: Clerk
+- **Payment Gateway Integration**: Stripe/RazorPay API
 
 ## Getting Started
 
