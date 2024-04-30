@@ -33,15 +33,15 @@ export default function SellPage() {
       console.log(response);
       toast.success("Event requested Successfully!", {
         position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: true,
+        autoClose: 3000,
+        hideProgressBar: false,
       });
     } catch (err) {
       console.error(err);
       toast.error("Please enter all the required details", {
         position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: true,
+        autoClose: 3000,
+        hideProgressBar: false,
       });
     }
   };

@@ -18,37 +18,22 @@ export default function Navbar() {
             </Link>
             <div className="nav-links">
                 <SignedOut>
-                    <Button
-                        variant="contained"
-                        className="login"
-                        style={{ width: "150px", color: "black", backgroundColor: "white" }}
-                        component={Link}
-                        to="/sign-in"
-                    >
-                        <b>Login</b>
-                    </Button>
+                <Link to="/sign-in" className="comic-button">
+                    <b>Login</b>
+                </Link>
                 </SignedOut>
                 <SignedIn>
-                <Button
-                    variant="contained"
-                    className="sell"
-                    style={{ width: "200px", color: "white", backgroundColor: "" }}
-                    component={Link}
-                    to="/dashboard"
-                >
+                <Link to="/dashboard" className="comic-button">
                     <b>Dashboard</b>
-                </Button>
+                </Link>
                 </SignedIn>
-                <Button
-                    variant="contained"
-                    className="sell"
-                    style={{ width: "200px", color: "white", backgroundColor: "red" }}
-                    component={Link}
-                    to="/sellpage"
-                >
+                <Link to="/sellpage" className="comic-button">
                     <b>Request an event!</b>
-                </Button>
+                </Link>
+
                 <UserButton afterSignOut={handleAfterSignOut} />
+
+
             </div>
         </nav>
     );
