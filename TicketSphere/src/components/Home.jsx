@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, Modal, Button, Box } from '@mui/material';
-import { Link } from 'react-router-dom'; // Import Link for routing
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Home = () => {
   const [tickets, setTickets] = useState([]);
@@ -11,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/tickets'); // Adjust URL if needed
+        const response = await axios.get('http://localhost:3000/tickets');
         setTickets(response.data);
       } catch (error) {
         console.error('Error fetching tickets:', error);
@@ -36,11 +37,17 @@ const Home = () => {
       <img src="https://lordsuniversal.edu.in/wp-content/uploads/2018/08/aditya-chinchure-494048-unsplash.jpg" alt="" height="500px" width="1350px" />
       <div
         className="event-list"
-        style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }} // Added justification
+        style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}
       >
         {tickets.map((ticket, index) => (
-          <div key={ticket._id} onClick={() => handleOpenModal(ticket)}>
-            <Card sx={{ maxWidth: 345, margin: '10px' }}> {/* Added margin for spacing */}
+          <motion.div 
+            key={ticket._id} 
+            onClick={() => handleOpenModal(ticket)}
+            drag // Enable drag functionality
+            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }} // Optional: Set constraints for dragging
+            style={{ cursor: 'grab' }} // Optional: Change cursor style
+          >
+            <Card sx={{ maxWidth: 345, margin: '10px' }}>
               <CardContent>
                 <Typography variant="h5" component="div">
                   {ticket.eventName}
@@ -49,7 +56,7 @@ const Home = () => {
                   Location: {ticket.eventLocation}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Category: {ticket.category} {/* Display category */}
+                  Category: {ticket.category}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   $ {ticket.price}
@@ -57,7 +64,7 @@ const Home = () => {
                 <img src={ticket.poster} alt={ticket.eventName} style={{ maxWidth: '100%', height: 'auto' }} />
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
         ))}
       </div>
       <Modal
@@ -85,16 +92,15 @@ const Home = () => {
             <>
               <p>Event Name: {selectedEvent.eventName}</p>
               <p>Location: {selectedEvent.eventLocation}</p>
-              <p>Category: {selectedEvent.category}</p> {/* Display category */}
+              <p>Category: {selectedEvent.category}</p>
               <p>Price: ${selectedEvent.price}</p>
-              {/* Add more fields as needed */}
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Link to="/sell" style={{ textDecoration: 'none' }}> {/* Link to sell page */}
+                <Link to="/sell" style={{ textDecoration: 'none' }}>
                   <Button variant="contained" color="secondary">
                     Sell your own ticket
                   </Button>
                 </Link>
-                <Link to="/buy" style={{ textDecoration: 'none' }}> {/* Link to buy page */}
+                <Link to="/buy" style={{ textDecoration: 'none' }}>
                   <Button variant="contained" color="primary">
                     Buy
                   </Button>
