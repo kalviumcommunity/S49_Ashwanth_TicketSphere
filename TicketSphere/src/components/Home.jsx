@@ -49,6 +49,9 @@ const Home = () => {
                   Location: {ticket.eventLocation}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
+                  Category: {ticket.category} {/* Display category */}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
                   $ {ticket.price}
                 </Typography>
                 <img src={ticket.poster} alt={ticket.eventName} style={{ maxWidth: '100%', height: 'auto' }} />
@@ -82,6 +85,7 @@ const Home = () => {
             <>
               <p>Event Name: {selectedEvent.eventName}</p>
               <p>Location: {selectedEvent.eventLocation}</p>
+              <p>Category: {selectedEvent.category}</p> {/* Display category */}
               <p>Price: ${selectedEvent.price}</p>
               {/* Add more fields as needed */}
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>

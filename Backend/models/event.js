@@ -18,6 +18,10 @@ const eventSchema = new Schema({
     poster: {
         type: String, 
         required: true
+    },
+    category: { // New field for category
+        type: String,
+        required: true
     }
 });
 
