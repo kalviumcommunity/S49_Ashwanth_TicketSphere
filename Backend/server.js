@@ -46,7 +46,7 @@ app.post('/sell', upload.single('file'), async (req, res) => {
     eventLocation: req.body.eventLocation,
     price: req.body.price,
     poster: req.file ? req.file.filename : '',
-    category: req.body.category // Save category from request body
+    category: req.body.category 
   });
 
   try {

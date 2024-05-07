@@ -19,7 +19,7 @@ const eventSchema = new Schema({
         type: String, 
         required: true
     },
-    category: { // New field for category
+    category: {
         type: String,
         required: true
     }
