@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Card, CardContent, Typography, Modal, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import "./home.css"
 
 const Home = () => {
   const [tickets, setTickets] = useState([]);
@@ -47,23 +48,22 @@ const Home = () => {
             dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }} // Optional: Set constraints for dragging
             style={{ cursor: 'grab' }} // Optional: Change cursor style
           >
-            <Card sx={{ maxWidth: 345, margin: '10px' }}>
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {ticket.eventName}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Location: {ticket.eventLocation}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Category: {ticket.category}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  $ {ticket.price}
-                </Typography>
-                <img src={ticket.poster} alt={ticket.eventName} style={{ maxWidth: '100%', height: 'auto' }} />
-              </CardContent>
-            </Card>
+          <div class="card">
+            <div class="card2">
+              <div class="card-content">
+                <h3>{ticket.eventName}</h3>
+                <p>Category: {ticket.category}</p>
+                <p>$ {ticket.price}</p>
+                {/* <img src={ticket.poster} alt={ticket.eventName} /> */}
+              </div>
+            </div>
+          </div>
+          {/* <div class="card">
+  <p class="heading">{ticket.eventName}</p>
+  <p>Category {ticket.category}</p>
+  <p>${ticket.price}</p>
+</div> */}
+
           </motion.div>
         ))}
       </div>
@@ -80,7 +80,7 @@ const Home = () => {
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: 400,
-            bgcolor: 'background.paper',
+            bgcolor: 'black',
             border: '2px solid #000',
             boxShadow: 24,
             p: 4,
