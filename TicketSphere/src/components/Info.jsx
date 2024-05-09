@@ -6,13 +6,13 @@ const Info = () => {
   const { eventId } = useParams();
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // Add state for errors
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
-    if (!eventId) { // Check if eventId is defined before fetching
+    if (!eventId) { 
       setError('Event ID not found');
       setLoading(false);
-      return; // Exit useEffect if no eventId
+      return; 
     }
 
     const fetchEventDetails = async () => {
@@ -22,7 +22,7 @@ const Info = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching event details:', error);
-        setError(error); // Update error state
+        setError(error); 
         setLoading(false);
       }
     };
@@ -49,7 +49,7 @@ const Info = () => {
               <p>Event Name: {eventDetails.eventName}</p>
               <p>Location: {eventDetails.eventLocation}</p>
               <p>Price: {eventDetails.price}</p>
-              {/* Add more fields as needed */}
+              
             </>
           )}
         </>

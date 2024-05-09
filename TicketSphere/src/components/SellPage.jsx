@@ -4,14 +4,13 @@ import axios from "axios";
 import { useDropzone } from 'react-dropzone';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
-import { UserButton } from "@clerk/clerk-react";
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
 export default function SellPage() {
   const [eventName, setEventName] = useState("");
   const [eventLocation, setEventLocation] = useState("");
   const [price, setPrice] = useState(0);
-  const [category, setCategory] = useState(""); // New state for category
+  const [category, setCategory] = useState(""); 
   const [file, setFile] = useState(null);
 
   const eventTypes = ['Sports', 'Concert', 'Party', 'Standup', 'Movie Night', 'Game Night', 'Food Festival'];

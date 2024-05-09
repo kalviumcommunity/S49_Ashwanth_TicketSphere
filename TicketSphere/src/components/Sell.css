@@ -1,4 +1,4 @@
-/* Basic styling */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -68,7 +68,7 @@ a {
   margin-top: 10px;
 }
 
-/* Funnier styling */
+
 
 .sell-form {
   background-color: #f0f0f0;
@@ -88,7 +88,7 @@ button[type="submit"] {
   background-color: linear-gradient(to right, #9C27B0, #FF9800);
 }
 
-/* Toast styling - You can modify these further based on react-toastify docs */
+
 .Toastify .Toast-message {
   font-weight: bold;
   color: white;
