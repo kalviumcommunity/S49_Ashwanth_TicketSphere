@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import "./Sell.css"; 
 import axios from "axios";
 import { useDropzone } from 'react-dropzone';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { useClerk } from "@clerk/clerk-react";
 
 export default function SellPage() {
   const [eventName, setEventName] = useState("");
@@ -22,15 +23,27 @@ export default function SellPage() {
     },
   });
 
+  const { user } = useClerk();
+
   const handleUpload = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+
+    if (!user) {
+      toast.error("Please sign in to sell an event", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+      });
+      return;
+    }
 
     const formData = new FormData();
-    formData.append('file', file); 
-    formData.append('eventName', eventName); 
-    formData.append('eventLocation', eventLocation); 
-    formData.append('price', price); 
-    formData.append('category', category); 
+    formData.append('file', file);
+    formData.append('eventName', eventName);
+    formData.append('eventLocation', eventLocation);
+    formData.append('price', price);
+    formData.append('category', category);
+    formData.append('sellerName', user.name || user.email); 
 
     try {
       const response = await axios.post('http://localhost:3000/sell', formData);

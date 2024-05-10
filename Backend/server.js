@@ -6,6 +6,8 @@ const cors = require('cors');
 require('dotenv').config();
 const multer = require('multer');
 const path = require('path');
+const Clerk = require("@clerk/clerk-sdk-node");
+
 
 
 const app = express();
@@ -24,6 +26,8 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+
 
 app.get('/', (req, res) => {
   res.send('TicketSphere');
@@ -46,7 +50,8 @@ app.post('/sell', upload.single('file'), async (req, res) => {
     eventLocation: req.body.eventLocation,
     price: req.body.price,
     poster: req.file ? req.file.filename : '',
-    category: req.body.category 
+    category: req.body.category,
+    sellerName: req.body.sellerName || "Anonymous", 
   });
 
   try {
