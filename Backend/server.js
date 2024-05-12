@@ -45,13 +45,15 @@ app.get('/tickets', async (req, res) => {
 });
 
 app.post('/sell', upload.single('file'), async (req, res) => {
+  const imagePath = req.file ? `${req.protocol}://${req.get('host')}/Images/${req.file.filename}` : '';
+
   const newEvent = new Event({
     eventName: req.body.eventName,
     eventLocation: req.body.eventLocation,
     price: req.body.price,
-    poster: req.file ? req.file.filename : '',
+    poster: imagePath, 
     category: req.body.category,
-    sellerName: req.body.sellerName || "Anonymous", 
+    sellerName: req.body.sellerName || "Anonymous",
   });
 
   try {
