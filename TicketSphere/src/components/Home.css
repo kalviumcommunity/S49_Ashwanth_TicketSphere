@@ -10,17 +10,17 @@ img {
 }
 
 
-.card {
-    width: 250px;
-    height: 175px;
+/* .card {
+    width: 350px;
+    height: 250px;
     background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
     border-radius: 20px;
     transition: all .3s;
    }
    
    .card2 {
-    width: 250px;
-    height: 175px;
+    width: 350px;
+    height: 250px;
     background-color: #1a1a1a;
     border-radius:10px;
     transition: all .2s;
@@ -33,8 +33,60 @@ img {
    
    .card:hover {
     box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.3);
+   } */
+   .card {
+    width: 350px;
+    height: 250px;
+    background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+    border-radius: 20px;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card2 {
+    width: 350px;
+    height: 250px;
+    background-color: #1a1a1a;
+    border-radius:10px;
+    transition: all .2s;
    }
-
+  
+   .card2:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
+   }
+  
+  .card:hover {
+    box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.3);
+  }
+  
+  .event-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    color: white;
+    background-color: #1a1a1a7d;
+  }
+  
+  .card-content h3 {
+    margin: 0;
+  }
+  
+  .card-content p {
+    margin: 0;
+  }
 
 
    .ant-modal-wrap {
@@ -71,6 +123,6 @@ img {
   }
   
   .buy-button {
-    margin-left: 10px; /* Add margin to the left of the "Buy" button */
+    margin-left: 10px; 
   }
   
