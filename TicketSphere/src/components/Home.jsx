@@ -69,28 +69,27 @@ const Home = () => {
         transition={{ duration: 1 }} 
       >
         {filteredTickets.map((ticket, index) => (
-          <motion.div 
-            key={ticket._id}
-            onClick={() => handleOpenModal(ticket)}
-            drag 
-            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }} 
-            style={{ cursor: 'grab' }} 
-            initial={{ opacity: 0, y: 50 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.5, delay: index * 0.1 }} 
-          >
-            <div class="card">
-              <div class="card2">
-                <div class="card-content">
-                  <br />
-                  <h3>{ticket.eventName}</h3>
-                  <p>Category: {ticket.category}</p>
-                  <p>$ {ticket.price}</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+  <motion.div
+    key={ticket._id}
+    drag
+    dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    whileHover={{ scale: 1.05 }}
+    onClick={() => handleOpenModal(ticket)}
+  >
+    <div className="card">
+      <div className="card2">
+        {ticket.poster && <img src={ticket.poster} alt={ticket.eventName} className="event-card-image" />}
+        <div className="card-content">
+          <h3>{ticket.eventName}</h3>
+          <p>$ {ticket.price}</p>
+        </div>
+      </div>
+    </div>
+  </motion.div>
+))}
       </motion.div>
 
       <Modal

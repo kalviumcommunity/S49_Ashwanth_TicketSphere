@@ -1,4 +1,3 @@
-
 img {
   border-radius: 10px;
 }
@@ -8,69 +7,93 @@ img {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px; 
 }
-
-
 .card {
-    width: 250px;
-    height: 175px;
-    background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
-    border-radius: 20px;
-    transition: all .3s;
-   }
-   
-   .card2 {
-    width: 250px;
-    height: 175px;
-    background-color: #1a1a1a;
-    border-radius:10px;
-    transition: all .2s;
-   }
-   
-   .card2:hover {
-    transform: scale(0.98);
-    border-radius: 20px;
-   }
-   
-   .card:hover {
-    box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.3);
-   }
+  width: 350px;
+  height: 250px;
+  background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+  border-radius: 20px;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
 
+.card2 {
+  width: 350px;
+  height: 250px;
+  background-color: #1a1a1a;
+  border-radius:10px;
+  transition: all .2s;
+}
 
+.card2:hover {
+  transform: scale(0.98);
+  border-radius: 20px;
+}
 
-   .ant-modal-wrap {
-    display: flex;
-    align-items: flex-start; /* Position the modal a bit above the center of the page */
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.607);
-  }
-  
-  .ant-modal-content {
-    max-width: 600px;
-    background-color: black;
-    color: black;
-  }
-  
-  .ant-modal-body {
-    padding: 24px;
-    background-color: white; /* Set text color to white */
-  }
-  
-  .ant-modal-title {
-    color: white; /* Set title text color to white */
-    font-size: 24px; /* Increase font size for title */
-  }
-  
-  .ant-modal-footer {
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .sell-button {
-    margin-right: 10px; /* Add margin to the right of the "Sell your own ticket" button */
-  }
-  
-  .buy-button {
-    margin-left: 10px; /* Add margin to the left of the "Buy" button */
-  }
-  
+.card:hover {
+  box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.3);
+}
+
+.event-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  color: white;
+  background-color: #1a1a1a7d;
+}
+
+.card-content h3 {
+  margin: 0;
+}
+
+.card-content p {
+  margin: 0;
+}
+
+.ant-modal-wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.607);
+}
+
+.ant-modal-content {
+  max-width: 600px;
+  background-color: black;
+  color: black;
+}
+
+.ant-modal-body {
+  padding: 24px;
+  background-color: white;
+}
+
+.ant-modal-title {
+  color: white;
+  font-size: 24px;
+}
+
+.ant-modal-footer {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sell-button {
+  margin-right: 10px;
+}
+
+.buy-button {
+  margin-left: 10px; 
+}
