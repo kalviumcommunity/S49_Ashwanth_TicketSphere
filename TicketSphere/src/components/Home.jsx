@@ -81,7 +81,7 @@ const Home = () => {
   >
     <div className="card">
       <div className="card2">
-        {ticket.poster && <img src={ticket.poster} alt={ticket.eventName} className="event-card-image" />}
+        {ticket.poster && <img src={ticket.poster} alt={ticket.eventName} className="event-card-image" draggable={false} />}
         <div className="card-content">
           <h3>{ticket.eventName}</h3>
           <p>$ {ticket.price}</p>
