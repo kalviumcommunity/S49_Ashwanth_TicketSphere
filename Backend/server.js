@@ -66,7 +66,18 @@ app.post('/sell', upload.single('file'), async (req, res) => {
   }
 });
 
-
+app.get('/tickets/:id', async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+    res.json(event);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
 const port = 3000;
 
 async function Connection() {

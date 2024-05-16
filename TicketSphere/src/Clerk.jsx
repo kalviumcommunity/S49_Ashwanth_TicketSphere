@@ -6,7 +6,7 @@ import './index.css';
 import { ClerkProvider, RedirectToSignIn, SignIn, SignUp, SignedIn, SignedOut,Protect } from "@clerk/clerk-react";
 import SellPage from './components/SellPage.jsx';
 import {neobrutalism} from "@clerk/themes";
-import Info from "./components/Info.jsx"
+import EventDetails from './components/EventDetails.jsx';
 import Dashboard from './components/dashboard.jsx';
 import Navbar from './navbar.jsx';
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -50,10 +50,7 @@ export  default function ClerkWithRoutes(){
               </>
             }
           />    
-          <Route
-            path = "/info/:id"
-            element={<Info />}
-          />
+          <Route path="/event/:id" render={(props) => <EventDetails {...props} />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         
