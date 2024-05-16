@@ -8,7 +8,7 @@ import "./home.css";
 
 const Home = () => {
   const [tickets, setTickets] = useState([]);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -102,7 +102,7 @@ const Home = () => {
               Sell your own ticket
             </Button>
           </Link>,
-          <Link to="/buy" key="buy">
+          <Link to={`/event/${selectedEvent._id}`} key="buy">
             <Button variant="contained" color="primary" onClick={handleCloseModal}>
               Buy
             </Button>
@@ -111,6 +111,7 @@ const Home = () => {
       >
         {selectedEvent && (
           <>
+            <p>Event ID: {selectedEvent._id}</p>
             <p>Event Name: {selectedEvent.eventName}</p>
             <p>Location: {selectedEvent.eventLocation}</p>
             <p>Category: {selectedEvent.category}</p>
