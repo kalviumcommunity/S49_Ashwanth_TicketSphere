@@ -68,7 +68,7 @@ export default function SellPage() {
 
   return (
     <>
-      <div>
+      <div className="back">
         
       </div>
       <div className="sell-form"> 
@@ -136,7 +136,7 @@ export default function SellPage() {
           <button type="submit">Sell Ticket</button>
         </form>
       </div>
-      <a href="/">Go Home</a>
+
     </>
   );
 }

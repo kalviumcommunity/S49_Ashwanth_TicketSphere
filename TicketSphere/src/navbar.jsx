@@ -14,6 +14,10 @@ export default function Navbar() {
             <Link to="/">
                 <img src="./logo/ticket2.png" alt="" />{" "}
                 <b className="site-title">TicketSphere</b>
+                {/* <span class="title" data-text="Awesome">
+                    <span class="actual-text">TicketSphere</span>
+                    <span aria-hidden="true" class="hover-text">TicketSphere</span>
+                </span> */}
             </Link>
             <div className="nav-links">
                 <SignedOut>
