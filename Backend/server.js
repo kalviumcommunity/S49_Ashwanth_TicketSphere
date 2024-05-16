@@ -54,6 +54,7 @@ app.post('/sell', upload.single('file'), async (req, res) => {
     poster: imagePath, 
     category: req.body.category,
     sellerName: req.body.sellerName || "Anonymous",
+    description: req.body.description
   });
 
   try {

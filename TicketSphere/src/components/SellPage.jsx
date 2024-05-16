@@ -13,6 +13,7 @@ export default function SellPage() {
   const [price, setPrice] = useState(0);
   const [category, setCategory] = useState(""); 
   const [file, setFile] = useState(null);
+  const [description, setDescription] = useState("");
 
   const eventTypes = ['Sports', 'Concert', 'Party', 'Standup', 'Movie Night', 'Game Night', 'Food Festival'];
 
@@ -44,6 +45,7 @@ export default function SellPage() {
     formData.append('price', price);
     formData.append('category', category);
     formData.append('sellerName', user.name || user.email); 
+    formData.append('description', description);
 
     try {
       const response = await axios.post('http://localhost:3000/sell', formData);
@@ -104,6 +106,15 @@ export default function SellPage() {
               min="0"
               required
             />
+          </div>
+          <div className="input-group">
+            <label htmlFor="description">Event Description:</label>
+            <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required 
+          />
           </div>
           <div className="input-group">
             <FormControl sx={{ minWidth: 200 }}>
