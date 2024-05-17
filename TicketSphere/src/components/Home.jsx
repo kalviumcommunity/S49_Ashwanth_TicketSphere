@@ -119,7 +119,7 @@ const Home = () => {
       >
         {selectedEvent && (
           <>
-            <p>Event ID: {selectedEvent._id}</p>
+            {/* <p>Event ID: {selectedEvent._id}</p> */}
             <p>Event Name: {selectedEvent.eventName}</p>
             <p>Location: {selectedEvent.eventLocation}</p>
             <p>Category: {selectedEvent.category}</p>
@@ -204,7 +204,7 @@ const Home = () => {
     >
       {selectedEvent && (
         <>
-          <p>Event ID: {selectedEvent._id}</p>
+          {/* <p>Event ID: {selectedEvent._id}</p> */}
           <p>Event Name: {selectedEvent.eventName}</p>
           <p>Location: {selectedEvent.eventLocation}</p>
           <p>Category: {selectedEvent.category}</p>
