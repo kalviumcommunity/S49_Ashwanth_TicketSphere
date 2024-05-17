@@ -5,7 +5,7 @@ import { useDropzone } from 'react-dropzone';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
-import { useClerk } from "@clerk/clerk-react";
+import { useClerk,useUser } from "@clerk/clerk-react";
 
 export default function SellPage() {
   const [eventName, setEventName] = useState("");
@@ -14,7 +14,7 @@ export default function SellPage() {
   const [category, setCategory] = useState(""); 
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
-
+  const { user } = useUser();
   const eventTypes = ['Sports', 'Concert', 'Party', 'Standup', 'Movie Night', 'Game Night', 'Food Festival'];
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -24,19 +24,9 @@ export default function SellPage() {
     },
   });
 
-  const { user } = useClerk();
-
   const handleUpload = async (e) => {
     e.preventDefault();
 
-    if (!user) {
-      toast.error("Please sign in to sell an event", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-      });
-      return;
-    }
 
     const formData = new FormData();
     formData.append('file', file);
@@ -44,7 +34,7 @@ export default function SellPage() {
     formData.append('eventLocation', eventLocation);
     formData.append('price', price);
     formData.append('category', category);
-    formData.append('sellerName', user.name || user.email); 
+    formData.append('sellerName', user.fullName); 
     formData.append('description', description);
 
     try {
