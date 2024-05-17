@@ -34,7 +34,7 @@ export default function SellPage() {
     formData.append('eventLocation', eventLocation);
     formData.append('price', price);
     formData.append('category', category);
-    formData.append('sellerName', user.username); 
+    formData.append('sellerName', user.fullName ? user.fullName : user.username); 
     formData.append('description', description);
 
     try {

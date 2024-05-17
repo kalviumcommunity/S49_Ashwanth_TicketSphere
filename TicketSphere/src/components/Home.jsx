@@ -48,7 +48,9 @@ const Home = () => {
         
     
       <h4>‎ ‎ </h4>
-      <div style={{color: "black"}}>Hello {user.username}!</div>
+      <div style={{ color: "black" }}>
+        Hello {user.fullName ? user.fullName : user.username}!
+      </div>
       <img src="https://lordsuniversal.edu.in/wp-content/uploads/2018/08/aditya-chinchure-494048-unsplash.jpg" alt="" height="500px" width="1350px" />
       
       <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
