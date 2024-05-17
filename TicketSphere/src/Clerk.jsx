@@ -32,10 +32,10 @@ export  default function ClerkWithRoutes(){
             path="/sign-in/"
             element={<SignIn routing="path" path="/sign-in" />}
           />
-          <Route
+          {/* <Route
             path="/sign-up/*"
             element={<SignUp routing="path" path="/sign-up" />}
-          />
+          /> */}
   
           <Route
             path="/sellpage"
