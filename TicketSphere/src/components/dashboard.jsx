@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button } from '@mui/material';
+import { useUser } from '@clerk/clerk-react';
+import { Card } from 'antd';
+import "./dashboard.css"
+const { Meta } = Card;
 
 const Dashboard = () => {
   const [tickets, setTickets] = useState([]);
+  const { user, isLoaded } = useUser();
 
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/user/tickets');
+        const response = await axios.get('http://localhost:3000/tickets');
         setTickets(response.data);
       } catch (error) {
         console.error('Error fetching tickets:', error);
@@ -18,36 +22,39 @@ const Dashboard = () => {
     fetchTickets();
   }, []);
 
-  const handleEdit = (ticketId) => {
-    // Implement edit functionality
-    console.log('Edit ticket:', ticketId);
-  };
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
 
-  const handleDelete = async (ticketId) => {
-    try {
-      await axios.delete(`http://localhost:3000/tickets/${ticketId}`);
-      setTickets(tickets.filter(ticket => ticket._id !== ticketId));
-      console.log('Ticket deleted successfully:', ticketId);
-    } catch (error) {
-      console.error('Error deleting ticket:', error);
-    }
-  };
+  const userTickets = tickets.filter(ticket =>
+    ticket.sellerName === (user.fullName || user.username)
+  );
 
   return (
-    <div>
-      <h2>Your Tickets</h2>
-      <ul>
-        {tickets.map(ticket => (
-          <li key={ticket._id}>
-            <p>{ticket.eventName}</p>
-            <p>{ticket.eventLocation}</p>
-            <p>${ticket.price}</p>
-            <Button onClick={() => handleEdit(ticket._id)}>Edit</Button>
-            <Button onClick={() => handleDelete(ticket._id)}>Delete</Button>
-          </li>
-        ))}
-      </ul>
+    <>
+    <h1>Your events</h1>
+    <h4>Manage all your listed events on this page </h4>
+
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
+      {userTickets.length > 0 ? (
+        userTickets.map((ticket) => (
+          <Card
+            key={ticket._id}
+            hoverable
+            style={{ width: 275 , height : 325 }}
+            cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height = "150px" /> : null}
+          >
+            <Meta
+              title={ticket.eventName}
+              description={`Location: ${ticket.eventLocation}, Price: $${ticket.price}, Category: ${ticket.category}`}
+            />
+          </Card>
+        ))
+      ) : (
+        <p>You have not listed any tickets yet.</p>
+      )}
     </div>
+    </>
   );
 };
 

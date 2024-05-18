@@ -1,40 +1,24 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif; 
+}
+
+
 #root {
-  max-width: 1280px;
+  max-width: 90vw;  
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
-
 body {
   background-color: antiquewhite;
+  font-size: 16px; 
 }
 
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 10px;
-  background-color: #000000;
+@media (min-width: 768px) {
 }
 
-.site-title {
-  font-size: 1.5rem;
-  color: white;
-  text-decoration: none;
+@media (min-width: 992px) {
 }
-
-.nav-links {
-  display: flex;
-  align-items: center;
-}
-
-.nav-links > * {
-  margin-right: 10px; 
-}
-
-
-
