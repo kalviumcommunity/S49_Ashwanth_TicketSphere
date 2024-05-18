@@ -7,7 +7,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 10px; 
-    background-color: #33333332; 
+    background-color: #000000; 
   }
   
   .site-title {
@@ -119,4 +119,21 @@
 .title:hover .hover-text {
   width: 100%;
   filter: drop-shadow(0 0 23px var(--animation-color))
+}
+@media only screen and (max-width: 1284px) {
+  .nav-links a {
+    font-size: 0.9rem; 
+    margin-right: 5px; 
+  }
+}
+@media only screen and (max-width: 1284px) {
+  .site-title {
+    font-size: 1.2rem; 
+  }
+}
+@media only screen and (max-width: 1284px) {
+  .comic-button {
+    width: 120px;
+    padding: 8px 15px;
+  }
 }

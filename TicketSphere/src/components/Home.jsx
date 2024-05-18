@@ -126,6 +126,7 @@ const Home = () => {
             <p>Location: {selectedEvent.eventLocation}</p>
             <p>Category: {selectedEvent.category}</p>
             <p>Price: ${selectedEvent.price}</p>
+            <p>Listed by : {selectedEvent.sellerName}</p>
           </>
         )}
       </Modal>
@@ -211,6 +212,7 @@ const Home = () => {
           <p>Location: {selectedEvent.eventLocation}</p>
           <p>Category: {selectedEvent.category}</p>
           <p>Price: ${selectedEvent.price}</p>
+          <p>Listed by : {user.fullName ? user.fullName : user.username}</p>
         </>
       )}
     </Modal>
