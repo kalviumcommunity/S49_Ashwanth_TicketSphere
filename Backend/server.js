@@ -78,6 +78,30 @@ app.get('/tickets/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+app.delete('/tickets/:id', async (req, res) => {
+  try {
+    // Find the ticket by ID
+    const ticket = await Event.findById(req.params.id);
+    
+    // If ticket doesn't exist, send 404 response
+    if (!ticket) {
+      return res.status(404).json({ message: 'Ticket not found' });
+    }
+
+    // Otherwise, delete the ticket
+    await ticket.remove();
+
+    // Send success message in response
+    res.json({ message: 'Ticket unlisted successfully' });
+  } catch (err) {
+    // If there's an error, send 500 response
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+
 const port = 3000;
 
 async function Connection() {
