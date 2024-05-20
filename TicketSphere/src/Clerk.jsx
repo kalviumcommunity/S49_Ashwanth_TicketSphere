@@ -9,6 +9,7 @@ import {neobrutalism} from "@clerk/themes";
 import EventDetails from './components/EventDetails.jsx';
 import Dashboard from './components/dashboard.jsx';
 import Navbar from './navbar.jsx';
+import Events from './components/Events.jsx';
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key")
@@ -52,6 +53,7 @@ export  default function ClerkWithRoutes(){
           />    
           <Route path="/event/:id" render={(props) => <EventDetails {...props} />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/events" element={<Events />} />
         </Routes>
         
         

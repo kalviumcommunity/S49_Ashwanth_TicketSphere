@@ -4,11 +4,11 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion'; 
 import { Modal, Select } from 'antd';
-import "./home.css";
 import { SignedIn, useUser } from '@clerk/clerk-react';
 import Loader from './loader.jsx'; 
+import "./home.css"
 
-const Home = () => {
+const Events = () => {
   const [tickets, setTickets] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -16,12 +16,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true); 
   const [minLoadingTime, setMinLoadingTime] = useState(false); 
   const { isSignedIn, user, isLoaded } = useUser();
-
-  const shuffleAndSelect = (array, num) => {
-    const shuffled = array.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, num);
-  };
-
+  
   useEffect(() => {
     const fetchTickets = async () => {
       try {
@@ -36,6 +31,7 @@ const Home = () => {
 
     fetchTickets();
 
+    
     const timer = setTimeout(() => {
       setMinLoadingTime(true);
     }, 1250);
@@ -56,8 +52,6 @@ const Home = () => {
     ? tickets.filter(ticket => ticket.category === selectedCategory)
     : tickets;
 
-  const randomTickets = shuffleAndSelect(filteredTickets, 6);
-
   if (loading || !isLoaded || !minLoadingTime) {
     return <Loader />; 
   }
@@ -66,17 +60,10 @@ const Home = () => {
     <>
       <h4>‎ ‎ </h4>
       <div style={{ color: "black" }}>
-        {isSignedIn && (
-          <h3>Welcome back {user.fullName ? user.fullName : user.username}!</h3>
-        )}
+          <h3>Browse all events</h3>
       </div>
-      <h6>‎ ‎ </h6> 
-      <img 
-        src="https://lordsuniversal.edu.in/wp-content/uploads/2018/08/aditya-chinchure-494048-unsplash.jpg" 
-        alt="Event" 
-        className="responsive-img"
-      />   
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <h6>‎ ‎ </h6>    
+      <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
         <Select
           value={selectedCategory}
           onChange={(value) => setSelectedCategory(value)}
@@ -92,15 +79,6 @@ const Home = () => {
           <Select.Option value="Game Night">Game Night</Select.Option>
           <Select.Option value="Food Festival">Food Festival</Select.Option>
         </Select>
-        <Link to="/events">
-          <button>
-    <span>View all events</span>
-    <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="37" cy="37" r="35.5" stroke="black" stroke-width="3"></circle>
-        <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="black"></path>
-    </svg>
-</button>
-        </Link>
       </div>
       <br />
       <motion.div 
@@ -110,7 +88,7 @@ const Home = () => {
         animate={{ opacity: 1 }} 
         transition={{ duration: 1 }} 
       >
-        {randomTickets.map((ticket, index) => (
+        {filteredTickets.map((ticket, index) => (
           <motion.div
             key={ticket._id}
             drag
@@ -165,4 +143,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Events;

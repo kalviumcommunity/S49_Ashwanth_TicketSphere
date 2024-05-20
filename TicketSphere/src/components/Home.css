@@ -97,3 +97,57 @@ img {
 .buy-button {
   margin-left: 10px; 
 }
+
+.responsive-img {
+  width: 1350px;
+  height: 500px;
+  max-width: 100%;
+}
+button {
+  cursor: pointer;
+  font-weight: 700;
+  font-family: Helvetica,"sans-serif";
+  transition: all .2s;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: #000000;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+
+button:hover {
+  background: #e20101;
+}
+
+button > svg {
+  width: 34px;
+  margin-left: 10px;
+  transition: transform .3s ease-in-out;
+}
+
+button:hover svg {
+  transform: translateX(5px);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+
+
+@media only screen and (max-width: 430px) {
+  .responsive-img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .responsive-img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+}
