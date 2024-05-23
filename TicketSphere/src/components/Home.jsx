@@ -2,35 +2,31 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion'; 
+import { motion } from 'framer-motion';
 import { Modal, Select } from 'antd';
 import "./home.css";
 import { SignedIn, useUser } from '@clerk/clerk-react';
-import Loader from './loader.jsx'; 
+import Loader from './loader.jsx';
 
 const Home = () => {
   const [tickets, setTickets] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [loading, setLoading] = useState(true); 
-  const [minLoadingTime, setMinLoadingTime] = useState(false); 
+  const [loading, setLoading] = useState(true);
+  const [minLoadingTime, setMinLoadingTime] = useState(false);
   const { isSignedIn, user, isLoaded } = useUser();
-
-  const shuffleAndSelect = (array, num) => {
-    const shuffled = array.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, num);
-  };
 
   useEffect(() => {
     const fetchTickets = async () => {
       try {
         const response = await axios.get('http://localhost:3000/tickets');
-        setTickets(response.data);
-        setLoading(false); 
+        const shuffledTickets = response.data.sort(() => Math.random() - 0.5);
+        setTickets(shuffledTickets);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching tickets:', error);
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -40,7 +36,7 @@ const Home = () => {
       setMinLoadingTime(true);
     }, 1250);
 
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, []);
 
   const handleOpenModal = (event) => {
@@ -56,11 +52,12 @@ const Home = () => {
     ? tickets.filter(ticket => ticket.category === selectedCategory)
     : tickets;
 
-  const randomTickets = shuffleAndSelect(filteredTickets, 6);
+  const displayedTickets = filteredTickets.slice(0, 6);
 
   if (loading || !isLoaded || !minLoadingTime) {
-    return <Loader />; 
+    return <Loader />;
   }
+
 
   return (
     <>
@@ -103,14 +100,14 @@ const Home = () => {
         </Link>
       </div>
       <br />
-      <motion.div 
-        className="event-list"
-        style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}
-        initial={{ opacity: 0 }} 
-        animate={{ opacity: 1 }} 
-        transition={{ duration: 1 }} 
-      >
-        {randomTickets.map((ticket, index) => (
+      <motion.div
+      className="event-list"
+      style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      {displayedTickets.map((ticket, index) => (
           <motion.div
             key={ticket._id}
             drag
