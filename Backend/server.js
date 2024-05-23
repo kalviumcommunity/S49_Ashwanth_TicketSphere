@@ -37,7 +37,6 @@ app.get('/tickets', async (req, res) => {
   try {
     const tickets = await Event.find();
     res.json(tickets);
-    console.log(tickets);
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
@@ -111,6 +110,6 @@ async function Connection() {
 
 Connection().then(() => {
   app.listen(port, () => {
-    console.log(` server running on PORT: ${port}`);
+    console.log(`Server running on PORT: ${port} 🚀 `);
   });
 });
