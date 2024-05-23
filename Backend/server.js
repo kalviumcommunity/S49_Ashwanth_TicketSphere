@@ -37,7 +37,6 @@ app.get('/tickets', async (req, res) => {
   try {
     const tickets = await Event.find();
     res.json(tickets);
-    console.log(tickets);
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
@@ -81,21 +80,13 @@ app.get('/tickets/:id', async (req, res) => {
 
 app.delete('/tickets/:id', async (req, res) => {
   try {
-    // Find the ticket by ID
     const ticket = await Event.findById(req.params.id);
-    
-    // If ticket doesn't exist, send 404 response
     if (!ticket) {
       return res.status(404).json({ message: 'Ticket not found' });
     }
-
-    // Otherwise, delete the ticket
-    await ticket.remove();
-
-    // Send success message in response
+    await Event.deleteOne({ _id: req.params.id });
     res.json({ message: 'Ticket unlisted successfully' });
   } catch (err) {
-    // If there's an error, send 500 response
     console.error(err);
     res.status(500).send('Server Error');
   }
@@ -111,6 +102,6 @@ async function Connection() {
 
 Connection().then(() => {
   app.listen(port, () => {
-    console.log(` server running on PORT: ${port}`);
+    console.log(`Server running on PORT: ${port} 🚀 `);
   });
 });
