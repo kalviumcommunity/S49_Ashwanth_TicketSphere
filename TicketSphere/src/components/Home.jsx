@@ -99,6 +99,8 @@ const Home = () => {
 </button>
         </Link>
       </div>
+      <b>Trending events</b>
+      <br />
       <br />
       <motion.div
       className="event-list"
