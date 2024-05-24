@@ -51,7 +51,7 @@ export  default function ClerkWithRoutes(){
               </>
             }
           />    
-          <Route path="/event/:id" render={(props) => <EventDetails {...props} />} />
+          <Route path="/event/:id" element={<EventDetails />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/events" element={<Events />} />
         </Routes>
