@@ -133,6 +133,7 @@ const Events = () => {
       <p>Location: {selectedEvent.eventLocation}</p>
       <p>Category: {selectedEvent.category}</p>
       <p>Price: ${selectedEvent.price}</p>
+      <p>Date: {new Date(selectedEvent.date).toLocaleDateString()}</p>
       <p>Listed by: {selectedEvent.sellerName}</p>
     </>
   )}

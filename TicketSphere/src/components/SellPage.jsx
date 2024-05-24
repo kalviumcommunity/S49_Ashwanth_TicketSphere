@@ -5,6 +5,8 @@ import { useDropzone } from 'react-dropzone';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { DatePicker } from 'antd'; // Import DatePicker from Ant Design
+// import '@mui/icons-material/Event';
 import { useClerk,useUser } from "@clerk/clerk-react";
 
 export default function SellPage() {
@@ -14,6 +16,7 @@ export default function SellPage() {
   const [category, setCategory] = useState(""); 
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
+  const [date, setDate] = useState(null); // State for date
   const { user } = useUser();
   const eventTypes = ['Sports', 'Concert', 'Party', 'Standup', 'Movie Night', 'Game Night', 'Food Festival'];
 
@@ -26,8 +29,10 @@ export default function SellPage() {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-
-
+  
+    // Convert date to ISO string and extract only the date part
+    const formattedDate = date ? date.toISOString().split('T')[0] : null;
+  
     const formData = new FormData();
     formData.append('file', file);
     formData.append('eventName', eventName);
@@ -36,7 +41,8 @@ export default function SellPage() {
     formData.append('category', category);
     formData.append('sellerName', user.fullName ? user.fullName : user.username); 
     formData.append('description', description);
-
+    formData.append('date', formattedDate);
+  
     try {
       const response = await axios.post('http://localhost:3000/sell', formData);
       console.log(response);
@@ -123,6 +129,14 @@ export default function SellPage() {
               </Select>
             </FormControl>
           </div>
+          <div className="input-group">
+            <label>Date:</label>
+            <DatePicker 
+            value={date}
+            onChange={value => setDate(value)}
+            format="DD/MM/YYYY"
+            />
+          </div>
           <div className="dropzone" {...getRootProps()}>
             <input {...getInputProps()} />
             {file && (
@@ -137,7 +151,6 @@ export default function SellPage() {
           <button type="submit">Sell Ticket</button>
         </form>
       </div>
-
     </>
   );
 }
