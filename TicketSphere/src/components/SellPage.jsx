@@ -40,7 +40,7 @@ export default function SellPage() {
     try {
       const response = await axios.post('http://localhost:3000/sell', formData);
       console.log(response);
-      toast.success("Event requested Successfully!", {
+      toast.success("Event listed Successfully!", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: false,

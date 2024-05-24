@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Modal, Select } from 'antd';
@@ -134,32 +133,32 @@ const Home = () => {
       </motion.div>
 
       <Modal
-        title="Event Details"
-        open={isModalVisible}
-        onCancel={handleCloseModal}
-        footer={[
-          <Link to="/sell" key="sell">
-            <Button variant="contained" color="secondary" onClick={handleCloseModal}>
-              Sell your own ticket
-            </Button>
-          </Link>,
-          <Link to={`/event/${selectedEvent._id}`} key="buy">
-            <Button variant="contained" color="primary" onClick={handleCloseModal}>
-              Buy
-            </Button>
-          </Link>,
-        ]}
-      >
-        {selectedEvent && (
-          <>
-            <p>Event Name: {selectedEvent.eventName}</p>
-            <p>Location: {selectedEvent.eventLocation}</p>
-            <p>Category: {selectedEvent.category}</p>
-            <p>Price: ${selectedEvent.price}</p>
-            <p>Listed by: {selectedEvent.sellerName}</p>
-          </>
-        )}
-      </Modal>
+  title="Event Details"
+  open={isModalVisible}
+  onCancel={handleCloseModal}
+  footer={
+    <div className="modal-footer">
+      <Link to={`/event/${selectedEvent._id}`} key="buy" className="fancy buy-tickets-button">
+        <span className="top-key"></span>
+        <span className="text">Buy Tickets</span>
+        <span className="bottom-key-1"></span>
+        <span className="bottom-key-2"></span>
+      </Link>
+    </div>
+  }
+  className="custom-modal"
+>
+  {selectedEvent && (
+    <>
+      <p>Event Name: {selectedEvent.eventName}</p>
+      <p>Location: {selectedEvent.eventLocation}</p>
+      <p>Category: {selectedEvent.category}</p>
+      <p>Price: ${selectedEvent.price}</p>
+      <p>Listed by: {selectedEvent.sellerName}</p>
+    </>
+  )}
+</Modal>
+
     </>
   );
 };

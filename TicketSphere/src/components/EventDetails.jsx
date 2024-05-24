@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const EventDetails = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
 
   useEffect(() => {
-    const fetchEventDetails = async () => {
+    const fetchEvent = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/tickets/${id}`);
         setEvent(response.data);
@@ -16,22 +16,21 @@ const EventDetails = () => {
       }
     };
 
-    fetchEventDetails();
+    fetchEvent();
   }, [id]);
+
+  if (!event) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
-      {event ? (
-        <>
-          <h2>{event.eventName}</h2>
-          <p>Location: {event.eventLocation}</p>
-          <p>Category: {event.category}</p>
-          <p>Price: ${event.price}</p>
-          {/* Add any other event details you want to display */}
-        </>
-      ) : (
-        <p>Loading event details...</p>
-      )}
+      <h1>{event.eventName}</h1>
+      <p>Location: {event.eventLocation}</p>
+      <p>Category: {event.category}</p>
+      <p>Price: ${event.price}</p>
+      <p>Description: {event.description}</p>
+      <p>Listed by: {event.sellerName}</p>
     </div>
   );
 };
