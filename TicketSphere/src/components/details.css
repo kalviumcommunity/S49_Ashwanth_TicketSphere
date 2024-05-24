@@ -1,0 +1,24 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+  }
+  
+  .event-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .event-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-right: 0px; /* Add space between image and event details */
+  }
+  
+  .event-info {
+    text-align: left;
+  }
+  
