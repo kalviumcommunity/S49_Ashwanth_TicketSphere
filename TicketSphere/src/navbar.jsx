@@ -31,7 +31,7 @@ export default function Navbar() {
                 </Link>
                 </SignedIn>
                 <Link to="/sellpage" className="comic-button">
-                    <b>Sell your Tickets!</b>
+                    <b>Sell your Ticket!</b>
                 </Link>
 
                 <UserButton afterSignOut={handleAfterSignOut} />
