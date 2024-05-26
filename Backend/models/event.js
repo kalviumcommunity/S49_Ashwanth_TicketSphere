@@ -32,7 +32,11 @@ const eventSchema = new mongoose.Schema({
   date: {
     type: Date,
     required: true,
-  }
+  },
+  phoneNumber: {
+    type: Number,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Event', eventSchema);

@@ -51,7 +51,8 @@ app.post('/sell', upload.single('file'), async (req, res) => {
     category: req.body.category,
     sellerName: req.body.sellerName || "Anonymous",
     description: req.body.description,
-    date: req.body.date // Add date to the schema
+    date: req.body.date,
+    phoneNumber: req.body.phoneNumber,
   });
 
   try {

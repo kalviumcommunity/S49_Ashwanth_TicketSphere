@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import "./Sell.css"; 
 import axios from "axios";
 import { useDropzone } from 'react-dropzone';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
-import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Select, MenuItem, FormControl, InputLabel, TextField } from '@mui/material'; // Import TextField from MUI
 import { DatePicker } from 'antd'; // Import DatePicker from Ant Design
 // import '@mui/icons-material/Event';
-import { useClerk,useUser } from "@clerk/clerk-react";
+import { useUser } from "@clerk/clerk-react";
 
 export default function SellPage() {
   const [eventName, setEventName] = useState("");
@@ -17,6 +17,7 @@ export default function SellPage() {
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(null); // State for date
+  const [phoneNumber, setPhoneNumber] = useState(""); // State for phone number
   const { user } = useUser();
   const eventTypes = ['Sports', 'Concert', 'Party', 'Standup', 'Movie Night', 'Game Night', 'Food Festival'];
 
@@ -42,6 +43,7 @@ export default function SellPage() {
     formData.append('sellerName', user.fullName ? user.fullName : user.username); 
     formData.append('description', description);
     formData.append('date', formattedDate);
+    formData.append('phoneNumber', phoneNumber); // Add phone number to form data
   
     try {
       const response = await axios.post('http://localhost:3000/sell', formData);
@@ -106,11 +108,11 @@ export default function SellPage() {
           <div className="input-group">
             <label htmlFor="description">Event Description:</label>
             <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required 
-          />
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required 
+            />
           </div>
           <div className="input-group">
             <FormControl sx={{ minWidth: 200 }}>
@@ -132,9 +134,21 @@ export default function SellPage() {
           <div className="input-group">
             <label>Date:</label>
             <DatePicker 
-            value={date}
-            onChange={value => setDate(value)}
-            format="DD/MM/YYYY"
+              value={date}
+              onChange={value => setDate(value)}
+              format="DD/MM/YYYY"
+            />
+          </div>
+          <div className="input-group">
+            <TextField
+              id="phoneNumber"
+              label="Phone Number"
+              type="tel"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value.replace(/[^0-9]/g, ''))}
+              inputProps={{ pattern: "[0-9]*" }}
+              fullWidth
+              required
             />
           </div>
           <div className="dropzone" {...getRootProps()}>
