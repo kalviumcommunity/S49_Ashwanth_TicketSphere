@@ -21,11 +21,8 @@ const EventDetails = () => {
     fetchEvent();
   }, [id]);
   const handleContactSeller = () => {
-    // Replace the seller's phone number with the actual phone number from the event details
     const sellerPhoneNumber = event.phoneNumber; 
     const whatsappLink = `https://wa.me/${sellerPhoneNumber}`;
-
-    // Open WhatsApp in a new tab
     window.open(whatsappLink, '_blank');
   };
   if (!event) {
@@ -59,7 +56,6 @@ const EventDetails = () => {
       </button>
         </div>
       </div>
-      {/* Add any additional content or buttons here */}
     </div>
   );
 };

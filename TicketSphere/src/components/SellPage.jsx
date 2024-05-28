@@ -4,10 +4,11 @@ import axios from "axios";
 import { useDropzone } from 'react-dropzone';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
-import { Select, MenuItem, FormControl, InputLabel, TextField } from '@mui/material'; // Import TextField from MUI
-import { DatePicker } from 'antd'; // Import DatePicker from Ant Design
-// import '@mui/icons-material/Event';
+import { Select, DatePicker, Input, Button, Upload, message } from 'antd';
 import { useUser } from "@clerk/clerk-react";
+
+
+const { Option } = Select;
 
 export default function SellPage() {
   const [eventName, setEventName] = useState("");
@@ -16,8 +17,9 @@ export default function SellPage() {
   const [category, setCategory] = useState(""); 
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState(null); // State for date
-  const [phoneNumber, setPhoneNumber] = useState(""); // State for phone number
+  const [date, setDate] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(""); 
+  const [imagePreview, setImagePreview] = useState(null);
   const { user } = useUser();
   const eventTypes = ['Sports', 'Concert', 'Party', 'Standup', 'Movie Night', 'Game Night', 'Food Festival'];
 
@@ -25,13 +27,14 @@ export default function SellPage() {
     accept: 'image/jpeg, image/png',
     onDrop: acceptedFiles => {
       setFile(acceptedFiles[0]);
+      const previewURL = URL.createObjectURL(acceptedFiles[0]);
+      setImagePreview(previewURL);
     },
   });
 
   const handleUpload = async (e) => {
     e.preventDefault();
-  
-    // Convert date to ISO string and extract only the date part
+
     const formattedDate = date ? date.toISOString().split('T')[0] : null;
   
     const formData = new FormData();
@@ -43,7 +46,7 @@ export default function SellPage() {
     formData.append('sellerName', user.fullName ? user.fullName : user.username); 
     formData.append('description', description);
     formData.append('date', formattedDate);
-    formData.append('phoneNumber', phoneNumber); // Add phone number to form data
+    formData.append('phoneNumber', phoneNumber);
   
     try {
       const response = await axios.post('http://localhost:3000/sell', formData);
@@ -76,8 +79,7 @@ export default function SellPage() {
         <form onSubmit={handleUpload}>
           <div className="input-group">
             <label htmlFor="eventName">Event Name:</label>
-            <input
-              type="text"
+            <Input
               id="eventName"
               value={eventName}
               onChange={(e) => setEventName(e.target.value)}
@@ -86,8 +88,7 @@ export default function SellPage() {
           </div>
           <div className="input-group">
             <label htmlFor="eventLocation">Event Location:</label>
-            <input
-              type="text"
+            <Input
               id="eventLocation"
               value={eventLocation}
               onChange={(e) => setEventLocation(e.target.value)}
@@ -96,7 +97,7 @@ export default function SellPage() {
           </div>
           <div className="input-group">
             <label htmlFor="price">Price:</label>
-            <input
+            <Input
               type="number"
               id="price"
               value={price}
@@ -107,30 +108,24 @@ export default function SellPage() {
           </div>
           <div className="input-group">
             <label htmlFor="description">Event Description:</label>
-            <textarea
+            <Input.TextArea
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required 
             />
           </div>
-          <div className="input-group">
-            <FormControl sx={{ minWidth: 200 }}>
-              <InputLabel id="category-label">Category</InputLabel>
-              <Select
-                labelId="category-label"
-                id="category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                required
-              >
-                <MenuItem value="">Select Event Type</MenuItem>
-                {eventTypes.map((type, index) => (
-                  <MenuItem key={index} value={type}>{type}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
+          <Select
+  placeholder="Select Event Type"
+  value={category}
+  onChange={(value) => setCategory(value)}
+  style={{ minWidth: 200 }}
+  required
+>Category
+  {eventTypes.map((type, index) => (
+    <Option key={index} value={type}>{type}</Option>
+  ))}
+</Select>
           <div className="input-group">
             <label>Date:</label>
             <DatePicker 
@@ -140,29 +135,25 @@ export default function SellPage() {
             />
           </div>
           <div className="input-group">
-            <TextField
+            <Input
               id="phoneNumber"
-              label="Phone Number"
+              placeholder="Phone Number"
               type="tel"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value.replace(/[^0-9]/g, ''))}
-              inputProps={{ pattern: "[0-9]*" }}
-              fullWidth
+              pattern="[0-9]*"
               required
             />
           </div>
-          <div className="dropzone" {...getRootProps()}>
-            <input {...getInputProps()} />
-            {file && (
-              <div className="preview-container">  
-                <img src={URL.createObjectURL(file)} alt="Event Poster Preview" style={{ width: "200px", height: "200px" }} />
-              </div>
-            )}
-            {!file && (
-              <p>Drag & drop or click to select an event poster</p>
-            )}
+          <div className="input-group">
+            <Upload.Dragger {...getRootProps()}>
+              <p className="ant-upload-drag-icon"></p>
+              <p className="ant-upload-text">Drag & drop or click to select an event poster</p>
+            </Upload.Dragger>
+            {imagePreview && <img src={imagePreview} alt="Event Poster Preview" className="image-preview" />}
           </div>
-          <button type="submit">Sell Ticket</button>
+
+          <Button type="primary" htmlType="submit">Sell Ticket</Button>
         </form>
       </div>
     </>
