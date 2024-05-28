@@ -15,7 +15,7 @@
     width: 100%;
     max-width: 500px;
     height: auto;
-    margin-right: 0px; /* Add space between image and event details */
+    margin-right: 0px; 
   }
   
   .event-info {

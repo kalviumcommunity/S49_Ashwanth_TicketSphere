@@ -134,7 +134,6 @@ const Dashboard = () => {
             <Form.Item name="price" label="Price">
               <Input type="number" />
             </Form.Item>
-            {/* Add other fields (e.g., category, description) as needed */}
             <Form.Item>
               <Button type="primary" htmlType="submit">
                 Save
