@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion'; 
-import { Modal, Select } from 'antd';
+import { Modal, Select, Input } from 'antd';
 import { SignedIn, useUser } from '@clerk/clerk-react';
 import Loader from './loader.jsx'; 
-import "./home.css"
+import "./Home.css"
 
 const Events = () => {
   const [tickets, setTickets] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true); 
   const [minLoadingTime, setMinLoadingTime] = useState(false); 
   const { isSignedIn, user, isLoaded } = useUser();
@@ -22,6 +23,7 @@ const Events = () => {
         const response = await axios.get('http://localhost:3000/tickets');
         setTickets(response.data);
         setLoading(false); 
+        setFilteredTickets(response.data); // Set filteredTickets initially
       } catch (error) {
         console.error('Error fetching tickets:', error);
         setLoading(false); 
@@ -47,9 +49,19 @@ const Events = () => {
     setIsModalVisible(false);
   };
 
-  const filteredTickets = selectedCategory
-    ? tickets.filter(ticket => ticket.category === selectedCategory)
-    : tickets;
+  const handleSearch = (ticket) => {
+    return ticket.eventName.toLowerCase().includes(searchQuery.toLowerCase());
+  };
+
+  const handleCategoryFilter = (ticket) => {
+    return selectedCategory ? ticket.category === selectedCategory : true;
+  };
+
+  const handleFilters = (ticket) => {
+    return handleSearch(ticket) && handleCategoryFilter(ticket);
+  };
+
+  const filteredTickets = tickets.filter(handleFilters);
 
   if (loading || !isLoaded || !minLoadingTime) {
     return <Loader />; 
@@ -63,6 +75,12 @@ const Events = () => {
       </div>
       <h6>‎ ‎ </h6>    
       <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
+        <Input 
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search events..."
+          style={{ width: 200, marginRight: 10 }}
+        />
         <Select
           value={selectedCategory}
           onChange={(value) => setSelectedCategory(value)}
@@ -112,32 +130,32 @@ const Events = () => {
       </motion.div>
 
       <Modal
-  title="Event Details"
-  open={isModalVisible}
-  onCancel={handleCloseModal}
-  footer={
-    <div className="modal-footer">
-      <Link to={`/event/${selectedEvent._id}`} key="buy" className="fancy buy-tickets-button">
-        <span className="top-key"></span>
-        <span className="text">Buy Tickets</span>
-        <span className="bottom-key-1"></span>
-        <span className="bottom-key-2"></span>
-      </Link>
-    </div>
-  }
-  className="custom-modal"
->
-  {selectedEvent && (
-    <>
-      <p>Event Name: {selectedEvent.eventName}</p>
-      <p>Location: {selectedEvent.eventLocation}</p>
-      <p>Category: {selectedEvent.category}</p>
-      <p>Price: ${selectedEvent.price}</p>
-      <p>Date: {new Date(selectedEvent.date).toLocaleDateString()}</p>
-      <p>Listed by: {selectedEvent.sellerName}</p>
-    </>
-  )}
-</Modal>
+        title="Event Details"
+        open={isModalVisible}
+        onCancel={handleCloseModal}
+        footer={
+          <div className="modal-footer">
+            <Link to={`/event/${selectedEvent._id}`} key="buy" className="fancy buy-tickets-button">
+              <span className="top-key"></span>
+              <span className="text">Buy Tickets</span>
+              <span className="bottom-key-1"></span>
+              <span className="bottom-key-2"></span>
+            </Link>
+          </div>
+        }
+        className="custom-modal"
+      >
+        {selectedEvent && (
+          <>
+            <p>Event Name: {selectedEvent.eventName}</p>
+            <p>Location: {selectedEvent.eventLocation}</p>
+            <p>Category: {selectedEvent.category}</p>
+            <p>Price: ${selectedEvent.price}</p>
+            <p>Date: {new Date(selectedEvent.date).toLocaleDateString()}</p>
+            <p>Listed by: {selectedEvent.sellerName}</p>
+          </>
+        )}
+      </Modal>
     </>
   );
 };
