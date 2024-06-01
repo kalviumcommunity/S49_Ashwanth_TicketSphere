@@ -41,8 +41,12 @@ const EventDetails = () => {
           <p>Date: {new Date(event.date).toLocaleDateString()}</p>
           <p className="description">Description: {event.description}</p>
           <p className="seller">Listed by: {event.sellerName}</p>
-
-          
+          <Link to={"https://rzp.io/l/Glp0Ull16"} target="_blank" rel="noopener noreferrer"key="buy" className="fancy buy-tickets-button">
+        <span className="top-key"></span>
+        <span className="text">Buy</span>
+        <span className="bottom-key-1"></span>
+        <span className="bottom-key-2"></span>
+      </Link>
       ‎ ‎‎ ‎‎ ‎‎ ‎‎ ‎‎ ‎‎ ‎‎ ‎‎ ‎‎ ‎‎ ‎‎ ‎
       <button className="contact-seller-button" onClick={handleContactSeller}>
         Talk to seller
