@@ -72,22 +72,7 @@ const Home = () => {
         alt="Event" 
         className="responsive-img"
       />   
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Select
-          value={selectedCategory}
-          onChange={(value) => setSelectedCategory(value)}
-          style={{ width: 200 }}
-          placeholder="Select Category"
-        >
-          <Select.Option value="">All Categories</Select.Option>
-          <Select.Option value="Sports">Sports</Select.Option>
-          <Select.Option value="Concert">Concert</Select.Option>
-          <Select.Option value="Party">Party</Select.Option>
-          <Select.Option value="Standup">Standup</Select.Option>
-          <Select.Option value="Movie Night">Movie Night</Select.Option>
-          <Select.Option value="Game Night">Game Night</Select.Option>
-          <Select.Option value="Food Festival">Food Festival</Select.Option>
-        </Select>
+      <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
         <Link to="/events">
         <a href="#" class="button1">
   <span class="button1__icon-wrapper">

@@ -277,6 +277,65 @@ button:active {
   transform: translate(0);
 }
 
+
+.back-top {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 0px 4px rgba(255, 160, 160, 0.253);
+  cursor: pointer;
+  transition-duration: 0.5s;
+  overflow: hidden;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.svgIcon {
+  width: 12px;
+  transition-duration: 0.5s;
+}
+
+.svgIcon path {
+  fill: white;
+}
+
+.back-top:hover {
+  width: 140px;
+  border-radius: 50px;
+  transition-duration: 0.5s;
+  background-color: rgb(255, 103, 103);
+  align-items: center;
+}
+
+.back-top:hover .svgIcon {
+  transition-duration: 0.5s;
+  transform: translateY(-200%);
+}
+
+.back-top::before {
+  position: absolute;
+  bottom: -20px;
+  content: "Back to Top";
+  color: white;
+  font-size: 0px;
+}
+
+.back-top:hover::before {
+  font-size: 13px;
+  opacity: 1;
+  bottom: unset;
+  transition-duration: 0.5s;
+}
+
+
 @media only screen and (max-width: 430px) {
   .responsive-img {
     width: 100%;
