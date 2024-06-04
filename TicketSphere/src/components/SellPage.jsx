@@ -111,6 +111,7 @@ export default function SellPage() {
             <Input.TextArea
               id="description"
               value={description}
+              placeholder='Please provide a brief description of the event. If u have multiple tickets, mention it here'
               onChange={(e) => setDescription(e.target.value)}
               required 
             />

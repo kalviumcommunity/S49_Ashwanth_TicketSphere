@@ -15,6 +15,7 @@
     "@clerk/themes": "^1.7.12",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@google-pay/button-react": "^3.1.0",
     "@headlessui/react": "^1.7.19",
     "@headlessui/tailwindcss": "^0.2.0",
     "@material-tailwind/html": "^2.2.2",
