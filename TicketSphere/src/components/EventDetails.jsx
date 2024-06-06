@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import './details.css';
 import GooglePayButton from '@google-pay/button-react';
@@ -40,6 +40,7 @@ const EventDetails = () => {
           <p>Location: {event.eventLocation}</p>
           <p>Category: {event.category}</p>
           <p>Price: ${event.price}</p>
+          <p>Quantity: {event.quantity}</p> 
           <p>Date: {new Date(event.date).toLocaleDateString()}</p>
           <p className="description">Description: {event.description}</p>
           <p className="seller">Listed by: {event.sellerName}</p>
@@ -72,7 +73,7 @@ const EventDetails = () => {
               transactionInfo: {
                 totalPriceStatus: 'FINAL',
                 totalPriceLabel: 'Total',
-                totalPrice: event.price.toString(),  // Use the ticket price from the event data
+                totalPrice: event.price.toString(), 
                 currencyCode: 'INR',
                 countryCode: 'IN',
               },
@@ -95,6 +96,13 @@ const EventDetails = () => {
             buttonType='Buy'
             className="dark-google-pay-button"
           />
+
+        <Link target="_blank" rel="noopener noreferrer"key="buy" className="fancy buy-tickets-button">
+        <span className="top-key"></span>
+        <span className="text">Buy</span>
+        <span className="bottom-key-1"></span>
+        <span className="bottom-key-2"></span>
+      </Link>
           ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ 
           <button className="contact-seller-button" onClick={handleContactSeller}>
             Talk to seller

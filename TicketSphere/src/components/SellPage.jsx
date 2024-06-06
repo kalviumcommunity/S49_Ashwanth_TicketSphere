@@ -23,6 +23,7 @@ export default function SellPage() {
   const [imagePreview, setImagePreview] = useState(null);
   const { user } = useUser();
   const eventTypes = ['Sports', 'Concert', 'Party', 'Standup', 'Movie Night', 'Game Night', 'Food Festival'];
+  const [quantity, setQuantity] = useState(1);
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/jpeg, image/png',
@@ -48,6 +49,7 @@ export default function SellPage() {
     formData.append('description', description);
     formData.append('date', formattedDate);
     formData.append('phoneNumber', phoneNumber);
+    formData.append('quantity', quantity);
   
     try {
       const response = await axios.post('http://localhost:3000/sell', formData);
@@ -112,6 +114,17 @@ export default function SellPage() {
               required
             />
           </div>
+          <div className="input-group">
+  <label htmlFor="quantity">Quantity:</label>
+  <Input
+    type="number"
+    id="quantity"
+    value={quantity}
+    onChange={(e) => setQuantity(Number(e.target.value))}
+    min="1"
+    required
+  />
+</div>
           <div className="input-group">
             <label htmlFor="description">Event Description:</label>
             <Input.TextArea
