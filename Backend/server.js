@@ -101,7 +101,8 @@ app.put('/tickets/:id', async (req, res) => {
       price,
       category,
       description,
-      date
+      date,
+      quantity
     }, { new: true });
 
     if (!updatedTicket) {
