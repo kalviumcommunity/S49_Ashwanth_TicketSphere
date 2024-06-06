@@ -10,17 +10,17 @@ The objective of TicketSphere is to address the need for a reliable and accessib
 
 1. **User Registration and Authentication**: Securely register and log in to your account.
 2. **Event Listing and Searching**: List tickets for sale and easily search for events.
-3. **Ticket Purchasing and Checkout**: Smooth ticket purchasing process with secure transactions.
+3. **Ticket Purchasing and Checkout**: Smooth ticket purchasing process with secure transactions supported by Google Pay.
 4. **Ticket Management**: Sellers can manage their listings, while buyers can view purchased tickets.
 5. **Notifications**: Receive updates on important events and transactions.
 
 ## Tech Stack
 
 - **Frontend**: HTML, CSS, JavaScript, React.js
-- **Backend**: Node.js, Express.js
+- **Backend**: Node.js, Express.js, Multer
 - **Database**: MongoDB
 - **Authentication**: Clerk
-- **Payment Gateway Integration**: Stripe/RazorPay API
+- **Payment Gateway Integration**: Google Pay
 
 ## Getting Started
 

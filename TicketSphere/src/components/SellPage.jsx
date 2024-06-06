@@ -5,8 +5,9 @@ import { useDropzone } from 'react-dropzone';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { Select, DatePicker, Input, Button, Upload, message } from 'antd';
+import Lottie from 'lottie-react'; 
+import animationData from "../lottie/sellpage_ani.json"
 import { useUser } from "@clerk/clerk-react";
-
 
 const { Option } = Select;
 
@@ -72,7 +73,12 @@ export default function SellPage() {
   return (
     <>
       <div className="back">
-        
+      <div className="animation-container">
+        <Lottie animationData={animationData} autoplay loop />
+      </div>
+      ‎ ‎ 
+      ‎ ‎
+      ‎ ‎
       </div>
       <div className="sell-form"> 
         <ToastContainer /> 
@@ -156,6 +162,8 @@ export default function SellPage() {
 
           <Button type="primary" htmlType="submit">Sell Ticket</Button>
         </form>
+        
+        
       </div>
     </>
   );
