@@ -93,3 +93,19 @@ a {
   height: 200px; 
   margin-top: 10px;
 }
+
+.sell-form {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 100vh;
+}
+
+.animation-container {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+

@@ -32,6 +32,7 @@
     "framer-motion": "^11.1.7",
     "jest-environment-jsdom": "^29.7.0",
     "jwt-decode": "^4.0.0",
+    "lottie-react": "^2.4.0",
     "razorpay": "^2.9.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.0-beta.1",
