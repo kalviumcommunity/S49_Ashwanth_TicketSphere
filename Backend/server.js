@@ -7,7 +7,7 @@ require('dotenv').config();
 const multer = require('multer');
 const path = require('path');
 const Clerk = require("@clerk/clerk-sdk-node");
-
+const Buy = require('./models/buy');
 
 const app = express();
 app.use(express.json());
@@ -55,7 +55,6 @@ app.post('/sell', upload.single('file'), async (req, res) => {
     phoneNumber: req.body.phoneNumber,
     quantity : req.body.quantity
   });
-
   try {
     const savedEvent = await newEvent.save();
     res.json(savedEvent);
@@ -64,6 +63,30 @@ app.post('/sell', upload.single('file'), async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+app.post('/buys', async (req, res) => { // Moved outside the /sell route
+  try {
+      const { eventName, sellerName, buyerName, quantity, totalPrice } = req.body;
+
+      const newTransaction = new Buy({ 
+          eventName,
+          sellerName,
+          buyerName,
+          quantity,
+          totalPrice,
+      });
+
+      await newTransaction.save();
+
+      console.log('Transaction details saved successfully.');
+      res.status(200).send('Transaction details saved successfully.');
+  } catch (error) {
+      console.error('Error saving transaction details:', error);
+      res.status(500).send('Error saving transaction details.');
+  }
+});
+
+
 
 app.get('/tickets/:id', async (req, res) => {
   try {
