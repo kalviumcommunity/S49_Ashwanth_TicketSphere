@@ -93,7 +93,7 @@ app.delete('/tickets/:id', async (req, res) => {
 });
 
 app.put('/tickets/:id', async (req, res) => {
-  const { eventName, eventLocation, price, category, description, date } = req.body;
+  const { eventName, eventLocation, price, category, description, date,quantity } = req.body;
 
   try {
     const updatedTicket = await Event.findByIdAndUpdate(req.params.id, {
@@ -103,6 +103,7 @@ app.put('/tickets/:id', async (req, res) => {
       category,
       description,
       date,
+      quantity
     }, { new: true });
 
     if (!updatedTicket) {
