@@ -5,6 +5,7 @@ import { Card, Button, Modal, Form, Input, message } from 'antd';
 import "./dashboard.css";
 const { Meta } = Card;
 import Loader from './loader.jsx';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [tickets, setTickets] = useState([]);
@@ -92,23 +93,24 @@ const Dashboard = () => {
       <h1>Your events</h1>
       <h4>All your listed tickets show up here</h4>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'space-between' }}>
         {userTickets.length > 0 ? (
           userTickets.map((ticket) => (
             <Card
               key={ticket._id}
               hoverable
-              style={{ width: 275, height: 325 }}
-              cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height="150px" /> : null}
-              actions={[
-                <Button onClick={() => handleEdit(ticket._id)} type="primary">Edit</Button>,
-                <Button onClick={() => showDeleteModal(ticket._id)} type="danger">Delete</Button>,
-              ]}
+              style={{ width: 350, height: 350 }}
+              cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height="180px" /> : null}
             >
               <Meta
                 title={ticket.eventName}
                 description={`Location: ${ticket.eventLocation}, Price: ₹ ${ticket.price}, Category: ${ticket.category}, Remaining Quantity: ${ticket.quantity}`}
               />
+              <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                <Button onClick={() => handleEdit(ticket._id)} type="primary">Edit</Button>
+                <Button onClick={() => showDeleteModal(ticket._id)} type="danger">Delete</Button>
+                <Link to={`/event/${ticket._id}`} target="_blank" rel="noopener noreferrer"><Button type="default">View Listing</Button></Link>
+              </div>
             </Card>
           ))
         ) : (
