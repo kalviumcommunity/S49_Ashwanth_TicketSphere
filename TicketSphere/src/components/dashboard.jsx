@@ -107,7 +107,7 @@ const Dashboard = () => {
             >
               <Meta
                 title={ticket.eventName}
-                description={`Location: ${ticket.eventLocation}, Price: $${ticket.price}, Category: ${ticket.category}`}
+                description={`Location: ${ticket.eventLocation}, Price: ₹ ${ticket.price}, Category: ${ticket.category}, Remaining Quantity: ${ticket.quantity}`}
               />
             </Card>
           ))
@@ -132,6 +132,9 @@ const Dashboard = () => {
               <Input />
             </Form.Item>
             <Form.Item name="price" label="Price">
+              <Input type="number" />
+            </Form.Item>
+            <Form.Item name="quantity" label="Quantity">
               <Input type="number" />
             </Form.Item>
             <Form.Item>

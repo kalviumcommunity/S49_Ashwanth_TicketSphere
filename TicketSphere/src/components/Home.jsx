@@ -134,7 +134,7 @@ const Home = () => {
                 {ticket.poster && <img src={ticket.poster} alt={ticket.eventName} className="event-card-image" draggable={false} />}
                 <div className="card-content">
                   <h3>{ticket.eventName}</h3>
-                  <p>$ {ticket.price}</p>
+                  <p>₹ {ticket.price}</p>
                 </div>
               </div>
             </div>
@@ -163,7 +163,7 @@ const Home = () => {
       <p>Event Name: {selectedEvent.eventName}</p>
       <p>Location: {selectedEvent.eventLocation}</p>
       <p>Category: {selectedEvent.category}</p>
-      <p>Price: ${selectedEvent.price}</p>
+      <p>Price: ₹{selectedEvent.price}</p>
       <p>Date: {new Date(selectedEvent.date).toLocaleDateString()}</p>
       <p>Listed by: {selectedEvent.sellerName}</p>
     </>

@@ -53,6 +53,7 @@ app.post('/sell', upload.single('file'), async (req, res) => {
     description: req.body.description,
     date: req.body.date,
     phoneNumber: req.body.phoneNumber,
+    quantity : req.body.quantity
   });
 
   try {
@@ -102,7 +103,6 @@ app.put('/tickets/:id', async (req, res) => {
       category,
       description,
       date,
-      quantity
     }, { new: true });
 
     if (!updatedTicket) {
