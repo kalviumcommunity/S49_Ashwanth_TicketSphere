@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
-import { Card, Button, Modal, Form, Input, message } from 'antd';
+import { Card, Button, Modal, Form, Input, message,Alert } from 'antd';
 import "./dashboard.css";
 const { Meta } = Card;
 import Loader from './loader.jsx';
@@ -158,7 +158,7 @@ const Dashboard = () => {
           okText="Delete"
           cancelText="Cancel"
         >
-          <p>Are you sure you want to unlist this ticket?</p>
+          <Alert message="Are you sure you want to unlist this ticket?" type="warning" />
         </Modal>
       </div>
     </>
