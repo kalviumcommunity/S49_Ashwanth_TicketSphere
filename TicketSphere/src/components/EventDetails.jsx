@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
 import axios from 'axios';
 import './details.css';
+import { Modal, Select , Alert} from 'antd';
 import GooglePayButton from '@google-pay/button-react';
+
+const { Option } = Select;
 
 const EventDetails = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -22,14 +27,28 @@ const EventDetails = () => {
   }, [id]);
 
   const handleContactSeller = () => {
-    const sellerPhoneNumber = event.phoneNumber; 
+    const sellerPhoneNumber = event.phoneNumber;
     const whatsappLink = `https://wa.me/${sellerPhoneNumber}`;
     window.open(whatsappLink, '_blank');
+  };
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleQuantityChange = (value) => {
+    setQuantity(value);
   };
 
   if (!event) {
     return <div>Loading...</div>;
   }
+
+  const totalPrice = (event.price * quantity).toFixed(2);
 
   return (
     <div className="container">
@@ -39,71 +58,102 @@ const EventDetails = () => {
           <h2>{event.eventName}</h2>
           <p>Location: {event.eventLocation}</p>
           <p>Category: {event.category}</p>
-          <p>Price: ${event.price}</p>
-          <p>Quantity: {event.quantity}</p> 
+          <p>Price: ₹{event.price}</p>
+          <p>Available Quantity: {event.quantity}</p>
           <p>Date: {new Date(event.date).toLocaleDateString()}</p>
           <p className="description">Description: {event.description}</p>
           <p className="seller">Listed by: {event.sellerName}</p>
-          
-          <GooglePayButton
-            environment="TEST"
-            paymentRequest={{
-              apiVersion: 2,
-              apiVersionMinor: 0,
-              allowedPaymentMethods: [
-                {
-                  type: 'CARD',
-                  parameters: {
-                    allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
-                    allowedCardNetworks: ['MASTERCARD', 'VISA'],
-                  },
-                  tokenizationSpecification: {
-                    type: 'PAYMENT_GATEWAY',
-                    parameters: {
-                      gateway: 'example',
-                      gatewayMerchantId: 'exampleGatewayMerchantId',
-                    },
-                  },
-                },
-              ],
-              merchantInfo: {
-                merchantId: '12345678901234567890',
-                merchantName: 'Demo Merchant',
-              },
-              transactionInfo: {
-                totalPriceStatus: 'FINAL',
-                totalPriceLabel: 'Total',
-                totalPrice: event.price.toString(), 
-                currencyCode: 'INR',
-                countryCode: 'IN',
-              },
-              shippingAddressRequired: true,
-              callbackIntents: ['SHIPPING_ADDRESS', 'PAYMENT_AUTHORIZATION'],
-            }}
-            onLoadPaymentData={paymentRequest => {
-              console.log('Success', paymentRequest);
-            }}
-            onPaymentAuthorized={paymentData => {
-              console.log('Payment Authorised Success', paymentData);
-              return { transactionState: 'SUCCESS' };
-            }}
-            onPaymentDataChanged={paymentData => {
-              console.log('On Payment Data Changed', paymentData);
-              return {};
-            }}
-            existingPaymentMethodRequired='false'
-            buttonColor='black'
-            buttonType='Buy'
-            className="dark-google-pay-button"
-          />
 
-        <Link target="_blank" rel="noopener noreferrer"key="buy" className="fancy buy-tickets-button">
-        <span className="top-key"></span>
-        <span className="text">Buy</span>
-        <span className="bottom-key-1"></span>
-        <span className="bottom-key-2"></span>
-      </Link>
-          ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ 
+          <Link
+            onClick={showModal}
+            className="fancy buy-tickets-button"
+          >
+            <span className="top-key"></span>
+            <span className="text">Buy</span>
+            <span className="bottom-key-1"></span>
+            <span className="bottom-key-2"></span>
+          </Link>
+
+          <Modal
+            title="Buy Tickets"
+            open={isModalVisible}
+            onCancel={handleCancel}
+            footer={null}
+          >
+            <div>
+              <label>
+                Quantity:
+                <Select
+                  defaultValue={quantity}
+                  onChange={handleQuantityChange}
+                  style={{ width: 120, marginLeft: 10 }}
+                >
+                  {[...Array(event.quantity).keys()].map(num => (
+                    <Option key={num + 1} value={num + 1}>
+                      {num + 1}
+                    </Option>
+                  ))}
+                </Select>
+              </label>
+              <p>Total Price: ₹ {totalPrice}</p>
+
+              <Alert message="Please proceed with payment only if you have already spoken to the seller." type="warning" />
+                <br />
+              
+              <GooglePayButton
+                environment="TEST"
+                paymentRequest={{
+                  apiVersion: 2,
+                  apiVersionMinor: 0,
+                  allowedPaymentMethods: [
+                    {
+                      type: 'CARD',
+                      parameters: {
+                        allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                        allowedCardNetworks: ['MASTERCARD', 'VISA'],
+                      },
+                      tokenizationSpecification: {
+                        type: 'PAYMENT_GATEWAY',
+                        parameters: {
+                          gateway: 'example',
+                          gatewayMerchantId: 'exampleGatewayMerchantId',
+                        },
+                      },
+                    },
+                  ],
+                  merchantInfo: {
+                    merchantId: '12345678901234567890',
+                    merchantName: 'Demo Merchant',
+                  },
+                  transactionInfo: {
+                    totalPriceStatus: 'FINAL',
+                    totalPriceLabel: 'Total',
+                    totalPrice: totalPrice.toString(),
+                    currencyCode: 'INR',
+                    countryCode: 'IN',
+                  },
+                  shippingAddressRequired: true,
+                  callbackIntents: ['SHIPPING_ADDRESS', 'PAYMENT_AUTHORIZATION'],
+                }}
+                onLoadPaymentData={paymentRequest => {
+                  console.log('Success', paymentRequest);
+                }}
+                onPaymentAuthorized={paymentData => {
+                  console.log('Payment Authorised Success', paymentData);
+                  return { transactionState: 'SUCCESS' };
+                }}
+                onPaymentDataChanged={paymentData => {
+                  console.log('On Payment Data Changed', paymentData);
+                  return {};
+                }}
+                existingPaymentMethodRequired='false'
+                buttonColor='black'
+                buttonType='Buy'
+                className="dark-google-pay-button"
+              />
+            </div>
+          </Modal>
+
           <button className="contact-seller-button" onClick={handleContactSeller}>
             Talk to seller
             <svg viewBox="0 0 48 48" y="0px" x="0px" xmlns="http://www.w3.org/2000/svg">
