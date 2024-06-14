@@ -2,6 +2,7 @@ body{
   
   margin: 0 auto;
   padding: 0rem;
+  
 }
 
 
@@ -20,6 +21,7 @@ body{
   top: 60px;
   z-index: 0; 
   top:0;
+  -webkit-user-drag: none;
 }
 
   .event-details {
@@ -31,7 +33,7 @@ body{
   }
   
   .event-image {
-    width: 450px;
+    width: 100%;
     max-width: 450px;
     height: 275px;
     margin-right: 0px; 
@@ -39,8 +41,12 @@ body{
     border: 5px solid rgb(0, 0, 0); 
     box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
     z-index: 1; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  
+  .event-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  }
   .event-info {
     text-align: left;
     margin-top: 20px; 
