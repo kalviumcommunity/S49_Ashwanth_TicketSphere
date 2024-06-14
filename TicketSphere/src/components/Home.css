@@ -1,13 +1,20 @@
+body{
+  margin: 0 auto;
+  text-align: center;
+}
+
 img {
   border-radius: 10px;
 }
 
 .event-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1350px; 
+  margin: 0 auto; 
   gap: 20px;
 }
-
 .card {
   width: 350px;
   height: 250px;

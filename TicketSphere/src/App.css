@@ -1,24 +1,4 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: sans-serif; 
-}
-
-
-#root {
-  max-width: 90vw;  
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
 body {
   background-color: antiquewhite;
   font-size: 16px; 
-}
-
-@media (min-width: 768px) {
-}
-
-@media (min-width: 992px) {
 }

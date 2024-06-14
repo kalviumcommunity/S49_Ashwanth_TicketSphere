@@ -1,25 +1,49 @@
+body{
+  
+  margin: 0 auto;
+  padding: 0rem;
+}
+
+
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     display: flex;
+    flex-direction: column;   
   }
-  
+.bg-image {
+  height: 500px;
+  width: 1469px;
+  filter: blur(25px); 
+  position: relative;
+  top: 60px;
+  z-index: 0; 
+  top:0;
+}
+
   .event-details {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    z-index: 1;
+    margin-top: -250px;
   }
   
   .event-image {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
+    width: 450px;
+    max-width: 450px;
+    height: 275px;
     margin-right: 0px; 
+    margin: 0 auto; 
+    border: 5px solid rgb(0, 0, 0); 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    z-index: 1; 
   }
   
   .event-info {
     text-align: left;
+    margin-top: 20px; 
   }
   .contact-seller-button {
     display: inline-block;

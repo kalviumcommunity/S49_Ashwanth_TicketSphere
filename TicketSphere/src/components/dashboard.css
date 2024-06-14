@@ -1,3 +1,6 @@
-body {
+body{
+    margin: 0 auto;
+    justify-content: center;
+    text-align: center;
     color: black;
-}
+  }
