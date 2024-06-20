@@ -6,6 +6,8 @@ import { Modal, Select } from 'antd';
 import "./Home.css";
 import { SignedIn, useUser } from '@clerk/clerk-react';
 import Loader from './loader.jsx';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Carousel } from 'react-responsive-carousel';
 
 const Home = () => {
   const [tickets, setTickets] = useState([]);
@@ -57,21 +59,26 @@ const Home = () => {
     return <Loader />;
   }
 
+  const randomTickets = tickets.sort(() => Math.random() - 0.5).slice(0, 3); // Select 3 random events
 
   return (
     <>
-      <h4>‎ ‎ </h4>
+      <h3>‎ ‎ </h3>
       <div style={{ color: "black" }}>
         {isSignedIn && (
           <h3>Welcome back {user.fullName ? user.fullName : user.username}!</h3>
         )}
       </div>
-      <h6>‎ ‎ </h6> 
-      <img 
-        src="https://lordsuniversal.edu.in/wp-content/uploads/2018/08/aditya-chinchure-494048-unsplash.jpg" 
-        alt="Event" 
-        className="responsive-img"
-      />   
+      <p>‎ ‎ </p>
+      <Carousel autoPlay infiniteLoop showThumbs={false}
+      >
+        {randomTickets.map((ticket, index) => (
+          <div key={ticket._id}>
+            <img src={ticket.poster} alt={ticket.eventName} className="carousel-image" draggable={false} />
+            <p className="legend">{ticket.eventName}</p>
+          </div>
+        ))}
+      </Carousel>
       <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
         <Link to="/events">
         <a href="#" class="button1">

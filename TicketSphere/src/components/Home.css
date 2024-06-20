@@ -341,7 +341,17 @@ button:active {
   bottom: unset;
   transition-duration: 0.5s;
 }
+.carousel-container {
+  width: 1200px; 
+  margin: 0 auto; 
+  position: relative; 
+}
 
+.carousel-image {
+  width: 500px;
+  height: 500px; 
+  object-fit:cover; 
+}
 
 @media only screen and (max-width: 430px) {
   .responsive-img {
