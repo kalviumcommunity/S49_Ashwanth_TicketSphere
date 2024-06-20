@@ -345,12 +345,35 @@ button:active {
   width: 1200px; 
   margin: 0 auto; 
   position: relative; 
+  border-radius: 10px;
 }
 
 .carousel-image {
   width: 500px;
   height: 500px; 
   object-fit:cover; 
+}
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  padding: 10px;
+  color: white;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.carousel-overlay p {
+  font-size: 35px; /* Adjust the font size as needed */
+  margin: 0;
+}
+
+.legend {
+  display: none;
 }
 
 @media only screen and (max-width: 430px) {
