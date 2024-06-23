@@ -21,7 +21,12 @@ const Dashboard = () => {
     const fetchTickets = async () => {
       try {
         const response = await axios.get('http://localhost:3000/tickets');
-        setTickets(response.data);
+        const ticketsWithLocationAndCategory = response.data.map(ticket => ({
+          ...ticket,
+          eventLocation: ticket.eventLocation,
+          category: ticket.category
+        }));
+        setTickets(ticketsWithLocationAndCategory);
       } catch (error) {
         console.error('Error fetching tickets:', error);
       }
@@ -179,27 +184,27 @@ const Dashboard = () => {
       <h4>All tickets you have bought show up here</h4>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'space-between' }}>
         {boughtTickets.length > 0 ? (
-  boughtTickets
-    .filter(ticket => ticket.buyerName === (user.fullName || user.username))
-    .map((ticket) => (
-      <Card
-        key={ticket._id}
-        hoverable
-        style={{ width: 350, height: 350 }}
-        cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height="180px" /> : null}
-      >
-        <Meta
-          title={ticket.eventName}
-          description={`Location: ${ticket.eventLocation}, Price: ₹ ${ticket.price}, Category: ${ticket.category}, Quantity: ${ticket.quantity}`}
-        />
-        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
-          <Link to={`/event/${ticket._id}`} target="_blank" rel="noopener noreferrer"><Button type="default">View Listing</Button></Link>
-        </div>
-      </Card>
-    ))
-) : (
-  <p>You have not bought any tickets yet🥲</p>
-)}
+          boughtTickets
+            .filter(ticket => ticket.buyerName === (user.fullName || user.username))
+            .map((ticket) => (
+              <Card
+                key={ticket._id}
+                hoverable
+                style={{ width: 350, height: 350 }}
+                cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height="180px" /> : null}
+              >
+                <Meta
+                  title={ticket.eventName}
+                  description={`Location: ${ticket.location}, Price: ₹ ${ticket.totalPrice}, Category: ${ticket.category}, Quantity: ${ticket.quantity}`}
+                />
+                <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                  <Link to={`/event/${ticket._id}`} target="_blank" rel="noopener noreferrer"><Button type="default">View Listing</Button></Link>
+                </div>
+              </Card>
+            ))
+        ) : (
+          <p>You have not bought any tickets yet🥲</p>
+        )}
 
       </div>
     </>

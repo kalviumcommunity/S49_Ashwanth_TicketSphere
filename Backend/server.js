@@ -64,25 +64,27 @@ app.post('/sell', upload.single('file'), async (req, res) => {
   }
 });
 
-app.post('/buys', async (req, res) => { 
+app.post('/buys', async (req, res) => {
   try {
-      const { eventName, sellerName, buyerName, quantity, totalPrice } = req.body;
+    const { eventName, sellerName, buyerName, location, category, quantity, totalPrice } = req.body;
 
-      const newTransaction = new Buy({ 
-          eventName,
-          sellerName,
-          buyerName,
-          quantity,
-          totalPrice,
-      });
+    const newTransaction = new Buy({
+      eventName,
+      sellerName,
+      buyerName,
+      location,
+      category,
+      quantity,
+      totalPrice,
+    });
 
-      await newTransaction.save();
+    await newTransaction.save();
 
-      console.log('Transaction details saved successfully.');
-      res.status(200).send('Transaction details saved successfully.');
+    console.log('Transaction details saved successfully.');
+    res.status(200).send('Transaction details saved successfully.');
   } catch (error) {
-      console.error('Error saving transaction details:', error);
-      res.status(500).send('Error saving transaction details.');
+    console.error('Error saving transaction details:', error);
+    res.status(500).send('Error saving transaction details.');
   }
 });
 
