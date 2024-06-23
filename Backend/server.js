@@ -64,7 +64,7 @@ app.post('/sell', upload.single('file'), async (req, res) => {
   }
 });
 
-app.post('/buys', async (req, res) => { // Moved outside the /sell route
+app.post('/buys', async (req, res) => { 
   try {
       const { eventName, sellerName, buyerName, quantity, totalPrice } = req.body;
 

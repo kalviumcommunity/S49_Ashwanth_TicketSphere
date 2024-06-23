@@ -91,7 +91,7 @@ const EventDetails = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
     setIsLoginModalVisible(false);
-    setCurrentStep(1); // Reset the modal step
+    setCurrentStep(1); 
   };
 
   const handleQuantityChange = (value) => {
