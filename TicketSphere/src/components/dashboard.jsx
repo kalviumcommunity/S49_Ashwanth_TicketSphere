@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
-import { Card, Button, Modal, Form, Input, message,Alert } from 'antd';
+import { Card, Button, Modal, Form, Input, message, Alert } from 'antd';
 import "./dashboard.css";
 const { Meta } = Card;
 import Loader from './loader.jsx';
@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [tickets, setTickets] = useState([]);
+  const [boughtTickets, setBoughtTickets] = useState([]); 
   const { user, isLoaded } = useUser();
   const [isEditModalVisible, setIsEditModalVisible] = useState(false); 
   const [selectedTicketId, setSelectedTicketId] = useState(null);
@@ -26,11 +27,23 @@ const Dashboard = () => {
       }
     };
 
+    const fetchBoughtTickets = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/buys', {
+          params: { buyerName: user.fullName || user.username }
+        });
+        setBoughtTickets(response.data);
+      } catch (error) {
+        console.error('Error fetching bought tickets:', error);
+      }
+    };
+
     fetchTickets();
+    fetchBoughtTickets();
     setTimeout(() => {
       setIsLoading(false);
     }, 1250);
-  }, []);
+  }, [user]);
 
   const showEditModal = (ticketId) => {
     setSelectedTicketId(ticketId);
@@ -91,7 +104,7 @@ const Dashboard = () => {
     <>
       <h4>‎ ‎ </h4>
       <h1>Your events</h1>
-      <h4>All your listed tickets show up here</h4>
+      <h4>All your listed and bought tickets show up here</h4>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'space-between' }}>
         {userTickets.length > 0 ? (
@@ -160,6 +173,31 @@ const Dashboard = () => {
         >
           <Alert message="Are you sure you want to unlist this ticket?" type="warning" />
         </Modal>
+      </div>
+
+      <h1>Bought Tickets</h1>
+      <h4>All tickets you have bought show up here</h4>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'space-between' }}>
+        {boughtTickets.length > 0 ? (
+          boughtTickets.map((ticket) => (
+            <Card
+              key={ticket._id}
+              hoverable
+              style={{ width: 350, height: 350 }}
+              cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height="180px" /> : null}
+            >
+              <Meta
+                title={ticket.eventName}
+                description={`Location: ${ticket.eventLocation}, Price: ₹ ${ticket.price}, Category: ${ticket.category}, Quantity: ${ticket.quantity}`}
+              />
+              <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                <Link to={`/event/${ticket._id}`} target="_blank" rel="noopener noreferrer"><Button type="default">View Listing</Button></Link>
+              </div>
+            </Card>
+          ))
+        ) : (
+          <p>You have not bought any tickets yet🥲</p>
+        )}
       </div>
     </>
   );

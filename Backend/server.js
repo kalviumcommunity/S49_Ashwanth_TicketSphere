@@ -87,6 +87,17 @@ app.post('/buys', async (req, res) => { // Moved outside the /sell route
 });
 
 
+app.get('/buys', async (req, res) => {
+  try {
+    const boughtTickets = await Buy.find();
+    res.json(boughtTickets);
+  } catch (error) {
+    console.error('Error fetching bought tickets:', error);
+    res.status(500).send('Error fetching bought tickets.');
+  }
+});
+
+
 
 app.get('/tickets/:id', async (req, res) => {
   try {
