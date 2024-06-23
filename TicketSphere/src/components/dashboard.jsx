@@ -109,9 +109,9 @@ const Dashboard = () => {
     <>
       <h4>‎ ‎ </h4>
       <h1>Your events</h1>
-      <h4>All your listed and bought tickets show up here</h4>
+      <h4>All your listed events show up here</h4>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px',  }}>
         {userTickets.length > 0 ? (
           userTickets.map((ticket) => (
             <Card
@@ -182,31 +182,38 @@ const Dashboard = () => {
 
       <h1>Bought Tickets</h1>
       <h4>All tickets you have bought show up here</h4>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'space-between' }}>
-        {boughtTickets.length > 0 ? (
-          boughtTickets
-            .filter(ticket => ticket.buyerName === (user.fullName || user.username))
-            .map((ticket) => (
-              <Card
-                key={ticket._id}
-                hoverable
-                style={{ width: 350, height: 350 }}
-                cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height="180px" /> : null}
-              >
-                <Meta
-                  title={ticket.eventName}
-                  description={`Location: ${ticket.location}, Price: ₹ ${ticket.totalPrice}, Category: ${ticket.category}, Quantity: ${ticket.quantity}`}
-                />
-                <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
-                  <Link to={`/event/${ticket._id}`} target="_blank" rel="noopener noreferrer"><Button type="default">View Listing</Button></Link>
-                </div>
-              </Card>
-            ))
-        ) : (
-          <p>You have not bought any tickets yet🥲</p>
-        )}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px',   }}>
+  {boughtTickets.length > 0 ? (
+    boughtTickets
+      .filter(ticket => ticket.buyerName === (user.fullName || user.username))
+      .map((ticket) => (
+        <Card
+        key={ticket._id}
+        hoverable
+        className="bought-ticket-card"
+        style={{ width: 350, height: 350 }}
+        cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height="180px" /> : null}
+      >
+        <div className="bought-info">
+          <div>
+            <span className="">Bought</span>
+          </div>
+          <div className="bought-badge ">
+            <span>Bought on: {new Date(ticket.createdAt).toLocaleDateString()}</span>
+          </div>
+        </div>
+        <Meta
+          title={ticket.eventName}
+          description={`Location: ${ticket.location}, Price: ₹ ${ticket.totalPrice}, Category: ${ticket.category}, Quantity: ${ticket.quantity}`}
+        />
+      </Card>
 
-      </div>
+      ))
+  ) : (
+    <p>You have not bought any tickets yet🥲</p>
+  )}
+</div>
+
     </>
   );
 };

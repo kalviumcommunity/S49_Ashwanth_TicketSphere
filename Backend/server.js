@@ -66,7 +66,7 @@ app.post('/sell', upload.single('file'), async (req, res) => {
 
 app.post('/buys', async (req, res) => {
   try {
-    const { eventName, sellerName, buyerName, location, category, quantity, totalPrice } = req.body;
+    const { eventName, sellerName, buyerName, location, category, quantity, totalPrice,poster } = req.body;
 
     const newTransaction = new Buy({
       eventName,
@@ -76,6 +76,7 @@ app.post('/buys', async (req, res) => {
       category,
       quantity,
       totalPrice,
+      poster
     });
 
     await newTransaction.save();
