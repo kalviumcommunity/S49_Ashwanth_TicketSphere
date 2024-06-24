@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
-import { Card, Button, Modal, Form, Input, message, Alert,Badge } from 'antd';
+import { Card, Button, Modal, Form, Input, message, Alert,Badge, Divider } from 'antd';
 import "./dashboard.css";
 const { Meta } = Card;
 import Loader from './loader.jsx';
 import { Link } from 'react-router-dom';
 import { LineChartOutlined } from '@ant-design/icons';  
+import { ClockCircleFilled } from '@ant-design/icons';
 
 const Dashboard = () => {
   const [tickets, setTickets] = useState([]);
@@ -185,7 +186,7 @@ const Dashboard = () => {
 
         <Modal
           title="Confirm Delete"
-          visible={isDeleteModalVisible}
+          open={isDeleteModalVisible}
           onOk={handleDelete}
           onCancel={handleCancel}
           okText="Delete"
@@ -194,6 +195,7 @@ const Dashboard = () => {
           <Alert message="Are you sure you want to unlist this ticket?" type="warning" />
         </Modal>
       </div>
+      <Divider />
 
       <h1>Bought Tickets</h1>
       <h4>All tickets you have bought show up here</h4>
@@ -214,7 +216,8 @@ const Dashboard = () => {
                     <span className="">Bought</span>
                   </div>
                   <div className="bought-badge ">
-                    <span>Bought on: {new Date(ticket.createdAt).toLocaleDateString()}</span>
+                  <ClockCircleFilled />
+                    <span>   {new Date(ticket.createdAt).toLocaleDateString()}</span>
                   </div>
                 </div>
                 <Meta
