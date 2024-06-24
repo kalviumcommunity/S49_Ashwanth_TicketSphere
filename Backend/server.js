@@ -53,8 +53,10 @@ app.post('/sell', upload.single('file'), async (req, res) => {
     description: req.body.description,
     date: req.body.date,
     phoneNumber: req.body.phoneNumber,
-    quantity : req.body.quantity
+    initialQuantity: req.body.quantity,
+    remainingQuantity: req.body.quantity,
   });
+
   try {
     const savedEvent = await newEvent.save();
     res.json(savedEvent);
@@ -63,6 +65,23 @@ app.post('/sell', upload.single('file'), async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+app.put('/update-quantity/:id', async (req, res) => {
+  try {
+    const { quantity } = req.body;
+    const event = await Event.findById(req.params.id);
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+    event.remainingQuantity -= quantity;
+    await event.save();
+    res.json(event);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 app.post('/buys', async (req, res) => {
   try {
