@@ -51,21 +51,25 @@ const EventDetails = () => {
 
   const handlePaymentAuthorized = async (paymentData) => {
     try {
+      const buyerName = user.username || user.fullName;
+  
       const transactionData = {
         eventName: event.eventName,
         sellerName: event.sellerName,
-        buyerName: user.fullName,
+        buyerName: buyerName,
         location: event.eventLocation,
         category: event.category,
         quantity: selectedValues.quantity,
         totalPrice: selectedValues.totalPrice,
         poster: event.poster,
       };
-
+  
+      console.log('Transaction Data:', transactionData); 
+  
       await axios.post('http://localhost:3000/buys', transactionData);
-
+  
       await axios.put(`http://localhost:3000/update-quantity/${event._id}`, { quantity: selectedValues.quantity });
-
+  
       console.log('Transaction details and event remainingQuantity updated successfully.');
       toast.success('Ticket successfully bought!', {
         autoClose: 1200,
@@ -80,6 +84,7 @@ const EventDetails = () => {
       return { transactionState: 'ERROR' };
     }
   };
+  
   
   
 

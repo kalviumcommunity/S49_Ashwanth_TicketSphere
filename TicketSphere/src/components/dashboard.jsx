@@ -196,6 +196,7 @@ const Dashboard = () => {
         </Modal>
       </div>
       <Divider />
+      <Divider />
 
       <h1>Bought Tickets</h1>
       <h4>All tickets you have bought show up here</h4>
