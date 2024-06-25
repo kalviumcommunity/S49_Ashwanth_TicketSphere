@@ -94,6 +94,20 @@ a {
   margin-top: 10px;
 }
 
+.image-preview-container {
+  position: relative;
+  margin-top: 10px;
+}
+
+
+.delete-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  color: red;
+  font-size: 20px;
+}
 .sell-form {
   display: flex;
   justify-content: right;
