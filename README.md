@@ -31,3 +31,4 @@ To start using TicketSphere:
 3. **Purchase Tickets**: Buy tickets securely and smoothly through TicketSphere's platform.
 4. **Manage Listings**: Sellers can manage their listed tickets, and buyers can view purchased tickets.
 
+**Site Status** : [![Netlify Status](https://api.netlify.com/api/v1/badges/3fdfbb15-03ce-48e5-ad84-5de89a22e40d/deploy-status)](https://app.netlify.com/sites/ticketsphere/deploys)
