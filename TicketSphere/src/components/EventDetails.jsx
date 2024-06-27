@@ -70,11 +70,16 @@ const EventDetails = () => {
   
       await axios.put(`http://localhost:3000/update-quantity/${event._id}`, { quantity: selectedValues.quantity });
   
-      console.log('Transaction details and event remainingQuantity updated successfully.');
       toast.success('Ticket successfully bought!', {
         autoClose: 1200,
       });
+
       setIsModalVisible(false);
+
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 2000); 
+      
       return { transactionState: 'SUCCESS' };
     } catch (error) {
       console.error('Error saving transaction details or updating event remainingQuantity:', error);
@@ -84,9 +89,6 @@ const EventDetails = () => {
       return { transactionState: 'ERROR' };
     }
   };
-  
-  
-  
 
   const handleLoginModalOk = () => {
     setIsLoginModalVisible(false);
@@ -253,7 +255,6 @@ const EventDetails = () => {
             >
               <p>Please log in to proceed with buying tickets.</p>
             </Modal>
-
             <button className="contact-seller-button" onClick={handleContactSeller}>
               Talk to seller
               <svg viewBox="0 0 48 48" y="0px" x="0px" xmlns="http://www.w3.org/2000/svg">
