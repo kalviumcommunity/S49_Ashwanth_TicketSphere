@@ -314,6 +314,8 @@ button:active {
   fill: white;
 }
 
+
+
 .back-top:hover {
   width: 140px;
   border-radius: 50px;
@@ -341,35 +343,45 @@ button:active {
   bottom: unset;
   transition-duration: 0.5s;
 }
-.carousel-container {
-  width: 1200px; 
-  margin: 0 auto; 
-  position: relative; 
-  border-radius: 10px;
+
+.swiper {
+  width: 1350px;
+  height: 520px;
 }
 
-.carousel-image {
-  width: 500px;
-  height: 500px; 
-  object-fit:cover; 
-}
-.carousel-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40%;
-  height: 100%;
-  padding: 10px;
-  color: white;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.swiper-slide {
   text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.carousel-overlay p {
-  font-size: 35px; /* Adjust the font size as needed */
+
+.swiper-slide img {
+  width: 1350px;
+  height: 520px;
+  object-fit: cover;
+}
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0%;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0.447));
+  color: white;
+  text-align: left; 
+  transition: left 0.3s ease; 
+}
+
+.swiper-slide-content:hover .overlay {
+  left: 0; 
+}
+
+.overlay h2 {
   margin: 0;
+  font-size: 24px;
 }
 
 .legend {
