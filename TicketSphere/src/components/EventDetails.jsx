@@ -77,7 +77,7 @@ const EventDetails = () => {
       setIsModalVisible(false);
 
       setTimeout(() => {
-        navigate('/dashboard');
+        navigate('/dashboard/#bought-tickets-section');
       }, 2000); 
       
       return { transactionState: 'SUCCESS' };
