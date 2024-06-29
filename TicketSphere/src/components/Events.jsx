@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Modal, Select, Input } from 'antd';
 import { SignedIn, useUser } from '@clerk/clerk-react';
 import Loader from './loader.jsx'; 
-import "./Home.css"
+import "./events.css"
 
 const Events = () => {
   const [tickets, setTickets] = useState([]);
@@ -86,12 +86,9 @@ const Events = () => {
 
   return (
     <>
-      <h4>‎ ‎ </h4>
-      <div style={{ color: "black" }}>
-          <h3>Browse all events</h3>
-      </div>
-      <h6>‎ ‎ </h6>    
-      <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
+    <h3>‎ ‎ </h3>
+    <h3>‎ ‎ </h3>
+      <div className="filter-bar">
         <Input 
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -115,13 +112,8 @@ const Events = () => {
         </Select>
       </div>
       <br />
-      <motion.div 
-        className="event-list"
-        style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}
-        initial={{ opacity: 0 }} 
-        animate={{ opacity: 1 }} 
-        transition={{ duration: 1 }} 
-      >
+      <h3>‎ ‎ </h3>
+      <div className="event-list">
         {filteredTickets.map((ticket, index) => (
           <motion.div
             key={ticket._id}
@@ -144,15 +136,15 @@ const Events = () => {
             </div>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
 
       <Modal
         title="Event Details"
-        open={isModalVisible}
+        visible={isModalVisible}
         onCancel={handleCloseModal}
         footer={
           <div className="modal-footer">
-            <Link to={`/event/${selectedEvent._id}`} key="buy" className="fancy buy-tickets-button">
+            <Link to={`/event/${selectedEvent._id}`} className="fancy buy-tickets-button">
               <span className="top-key"></span>
               <span className="text">Buy Tickets</span>
               <span className="bottom-key-1"></span>
@@ -183,6 +175,7 @@ const Events = () => {
           </svg>
         </button>
       )}
+      <br />
     </>
   );
 };

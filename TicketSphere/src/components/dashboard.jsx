@@ -228,7 +228,9 @@ const Dashboard = () => {
             <p>You have not bought any tickets yet 🥲</p>
           )}
         </div>
+        <br />
       </div>
+      
     </>
   );
 };
