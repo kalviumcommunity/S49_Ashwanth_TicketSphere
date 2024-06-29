@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
-import { Card, Button, Modal, Form, Input, message, Alert,Badge, Divider } from 'antd';
-import "./dashboard.css";
-const { Meta } = Card;
+import { Card, Button, Modal, Form, Input, message, Alert, Badge, Divider } from 'antd';
 import Loader from './loader.jsx';
+import "./dashboard.css"
 import { Link } from 'react-router-dom';
-import { LineChartOutlined } from '@ant-design/icons';  
-import { ClockCircleFilled } from '@ant-design/icons';
+import { LineChartOutlined, ClockCircleFilled } from '@ant-design/icons';
+
+const { Meta } = Card;
 
 const Dashboard = () => {
-  const [tickets, setTickets] = useState([]);
-  const [boughtTickets, setBoughtTickets] = useState([]); 
   const { user, isLoaded } = useUser();
-  const [isEditModalVisible, setIsEditModalVisible] = useState(false); 
+  const [tickets, setTickets] = useState([]);
+  const [boughtTickets, setBoughtTickets] = useState([]);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [selectedTicketId, setSelectedTicketId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [editTicketData, setEditTicketData] = useState(null);
@@ -23,14 +23,11 @@ const Dashboard = () => {
     const fetchTickets = async () => {
       try {
         const response = await axios.get('http://localhost:3000/tickets');
-        const ticketsWithLocationAndCategory = response.data.map(ticket => ({
-          ...ticket,
-          eventLocation: ticket.eventLocation,
-          category: ticket.category
-        }));
-        setTickets(ticketsWithLocationAndCategory);
+        setTickets(response.data);
       } catch (error) {
         console.error('Error fetching tickets:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -45,27 +42,24 @@ const Dashboard = () => {
       }
     };
 
-    fetchTickets();
-    fetchBoughtTickets();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1250);
-  }, [user]);
+    if (isLoaded) {
+      fetchTickets();
+      fetchBoughtTickets();
+    }
+  }, [user, isLoaded]);
 
   const showEditModal = (ticketId) => {
-    setSelectedTicketId(ticketId);
-    setIsEditModalVisible(true);
-  };
-
-  const handleEdit = (ticketId) => {
     const ticketToEdit = tickets.find(ticket => ticket._id === ticketId);
-    setEditTicketData(ticketToEdit);
-    showEditModal(ticketId);
+    if (ticketToEdit) {
+      setEditTicketData(ticketToEdit);
+      setSelectedTicketId(ticketId);
+      setIsEditModalVisible(true);
+    }
   };
 
-  const handleEditSubmit = async (editedValues) => {
+  const handleEdit = async (ticketId, editedValues) => {
     try {
-      await axios.put(`http://localhost:3000/tickets/${selectedTicketId}`, editedValues);
+      await axios.put(`http://localhost:3000/tickets/${ticketId}`, editedValues);
       message.success('Ticket updated successfully');
       setIsEditModalVisible(false);
       const response = await axios.get('http://localhost:3000/tickets');
@@ -99,137 +93,141 @@ const Dashboard = () => {
     setIsDeleteModalVisible(false);
   };
 
-  if (!isLoaded || isLoading) {
-    return <Loader />;
-  }
-
   const userTickets = tickets.filter(ticket =>
     ticket.sellerName === (user.fullName || user.username)
   );
 
+  if (!isLoaded || isLoading) {
+    return <Loader />;
+  }
+
   return (
     <>
-      <h4>‎ ‎ </h4>
       <h1>Your events</h1>
       <h4>All your listed events show up here</h4>
-
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
         {userTickets.length > 0 ? (
           userTickets.map((ticket) => (
             <Card
-  key={ticket._id}
-  hoverable
-  style={{ width: 350, height: 350, position: 'relative' }}
-  cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height="180px" /> : null}
->
-  <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>
-    <Badge
-      count={
-        <>
-        <div className="listing-badge">
-        <LineChartOutlined style={{ marginRight: 4, fontSize: 16 }} />
-        <span><b>{ticket.initialQuantity - ticket.remainingQuantity}</b></span>
-        <span><b> tickets sold!</b></span>
-      </div>
-        </>
-      }
-      style={{ backgroundColor: '#52c41a' }}
-    />
-  </div>
-  <Meta
-    title={ticket.eventName}
-    description={`Location: ${ticket.eventLocation}, Price: ₹ ${ticket.price}, Category: ${ticket.category}, Remaining Quantity: ${ticket.remainingQuantity}`}
-  />
-  <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
-    <Button onClick={() => handleEdit(ticket._id)} type="primary">Edit</Button>
-    <Button onClick={() => showDeleteModal(ticket._id)} type="danger">Delete</Button>
-    <Link to={`/event/${ticket._id}`} target="_blank" rel="noopener noreferrer"><Button type="default">View Listing</Button></Link>
-  </div>
-</Card>
+              key={ticket._id}
+              hoverable
+              style={{ width: 350, height: 350, position: 'relative' }}
+              cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height="180px" /> : null}
+            >
+              <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>
+                <Badge
+                  count={
+                    <div className="listing-badge">
+                      <LineChartOutlined style={{ marginRight: 4, fontSize: 16 }} />
+                      <span><b>{ticket.initialQuantity - ticket.remainingQuantity}</b></span>
+                      <span><b> tickets sold!</b></span>
+                    </div>
+                  }
+                  style={{ backgroundColor: '#52c41a' }}
+                />
+              </div>
+              <Meta
+                title={ticket.eventName}
+                description={`Location: ${ticket.eventLocation}, Price: ₹ ${ticket.price}, Category: ${ticket.category}, Remaining Quantity: ${ticket.remainingQuantity}`}
+              />
+              <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                <Button onClick={() => showEditModal(ticket._id)} type="primary">Edit</Button>
+                <Button onClick={() => showDeleteModal(ticket._id)} type="danger">Delete</Button>
+                <Link to={`/event/${ticket._id}`} target="_blank" rel="noopener noreferrer"><Button type="default">View Listing</Button></Link>
+              </div>
+            </Card>
           ))
         ) : (
-          <p>You have not listed any tickets yet🥲</p>
+          <p>You have not listed any tickets yet 🥲</p>
         )}
-
-        <Modal
-          title="Edit Ticket"
-          open={isEditModalVisible}
-          onCancel={handleCancel}
-          footer={null}
-        >
-          <Form
-            initialValues={editTicketData}
-            onFinish={handleEditSubmit}
-          >
-            <Form.Item name="eventName" label="Event Name">
-              <Input />
-            </Form.Item>
-            <Form.Item name="eventLocation" label="Location">
-              <Input />
-            </Form.Item>
-            <Form.Item name="price" label="Price">
-              <Input type="number" />
-            </Form.Item>
-            <Form.Item name="quantity" label="Quantity">
-              <Input type="number" />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Save
-              </Button>
-              <Button onClick={handleCancel} style={{ marginLeft: 8 }}>
-                Cancel
-              </Button>
-            </Form.Item>
-          </Form>
-        </Modal>
-
-        <Modal
-          title="Confirm Delete"
-          open={isDeleteModalVisible}
-          onOk={handleDelete}
-          onCancel={handleCancel}
-          okText="Delete"
-          cancelText="Cancel"
-        >
-          <Alert message="Are you sure you want to unlist this ticket?" type="warning" />
-        </Modal>
       </div>
-      <Divider />
+
+      <Modal
+  title="Edit Ticket"
+  open={isEditModalVisible}
+  onCancel={handleCancel}
+  footer={null}
+>
+  <Form
+    initialValues={editTicketData}  
+    onFinish={(values) => handleEdit(selectedTicketId, values)}
+  >
+          <Form.Item name="eventName" label="Event Name">
+            <Input />
+          </Form.Item>
+          <Form.Item name="eventLocation" label="Location">
+            <Input />
+          </Form.Item>
+          <Form.Item name="price" label="Price">
+            <Input type="number" />
+          </Form.Item>
+          <Form.Item name="category" label="Category">
+            <Input />
+          </Form.Item>
+          <Form.Item name="description" label="Description">
+            <Input.TextArea />
+          </Form.Item>
+          <Form.Item name="date" label="Date">
+            <Input type="date" />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Save
+            </Button>
+            <Button onClick={handleCancel} style={{ marginLeft: 8 }}>
+              Cancel
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      <Modal
+        title="Confirm Delete"
+        open={isDeleteModalVisible}
+        onOk={handleDelete}
+        onCancel={handleCancel}
+        okText="Delete"
+        cancelText="Cancel"
+      >
+        <Alert message="Are you sure you want to unlist this ticket?" type="warning" />
+      </Modal>
+
       <Divider />
 
-      <h1>Bought Tickets</h1>
-      <h4>All tickets you have bought show up here</h4>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-        {boughtTickets.length > 0 ? (
-          boughtTickets
-            .filter(ticket => ticket.buyerName === (user.fullName || user.username))
-            .map((ticket) => (
-              <Card
-                key={ticket._id}
-                hoverable
-                className="bought-ticket-card"
-                style={{ width: 350, height: 350 }}
-                cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height="180px" /> : null}
-              >
-                <div className="bought-info">
-                  <div>
-                    <span className="">Bought</span>
+      <div id="bought-tickets-section" className='bought'>
+        <h1>Bought Tickets</h1>
+        <h4>All tickets you have bought show up here</h4>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+          {boughtTickets.length > 0 ? (
+            boughtTickets
+              .filter(ticket => ticket.buyerName === (user.fullName || user.username))
+              .map((ticket) => (
+                <Card
+                  key={ticket._id}
+                  hoverable
+                  className="bought-ticket-card"
+                  style={{ width: 350, height: 350 }}
+                  cover={ticket.poster ? <img alt={ticket.eventName} src={ticket.poster} height="180px" /> : null}
+                >
+                  <div className="bought-info">
+                    <div>
+                      <span className="">Bought</span>
+                    </div>
+                    <div className="bought-badge ">
+                      <ClockCircleFilled />
+                      <span>   {new Date(ticket.createdAt).toLocaleDateString()}</span>
+                    </div>
                   </div>
-                  <div className="bought-badge ">
-                  <ClockCircleFilled />
-                    <span>   {new Date(ticket.createdAt).toLocaleDateString()}</span>
-                  </div>
-                </div>
-                <Meta
-                  title={ticket.eventName}
-                  description={`Location: ${ticket.location}, Price: ₹ ${ticket.totalPrice}, Category: ${ticket.category}, Quantity: ${ticket.quantity}`}
-                />
-              </Card>
-            ))
-        ) : (
-          <p>You have not bought any tickets yet🥲</p>
-        )}
+                  <Meta
+                    title={ticket.eventName}
+                    description={`Location: ${ticket.location}, Price: ₹ ${ticket.totalPrice}, Category: ${ticket.category}, Quantity: ${ticket.remainingQuantity}`}
+                  />
+                </Card>
+              ))
+          ) : (
+            <p>You have not bought any tickets yet 🥲</p>
+          )}
+        </div>
       </div>
     </>
   );
