@@ -1,6 +1,5 @@
 .sell-form {
   margin-top: 55px;
-  align-items: right;
   padding-left: 450px;
   
 }
@@ -135,7 +134,7 @@
 
 .brutalist-input:focus + .brutalist-label {
   transform: rotate(0deg) scale(1.05);
-  background-color: #4a90e2;
+  background-color: #e24a4ad7;
 }
 
 .smooth-type {
@@ -215,4 +214,66 @@
 
 .ant-upload-text {
   margin-top: 8px;
+}
+.card__button {
+  border: 3px solid #000;
+  background: #ff5151;
+  color: #fff;
+  padding: 10px;
+  font-size: 18px;
+  left:  0%;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+  width: 50%;
+  height: 100%;
+}
+
+.card__button::before {
+  content: "Sure?";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 105%;
+  background-color: #ff8c00;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(100%);
+  transition: transform 0.3s;
+}
+
+.card__button:hover::before {
+  transform: translateY(0);
+}
+
+.card__button:active {
+  transform: scale(0.95);
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(2px, 2px);
+  }
+  25% {
+    transform: translate(-2px, -2px);
+  }
+  50% {
+    transform: translate(-2px, 2px);
+  }
+  75% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(2px, 2px);
+  }
+}
+
+.glitch {
+  animation: glitch 0.3s infinite;
 }
