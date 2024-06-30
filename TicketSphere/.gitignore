@@ -8,7 +8,10 @@ pnpm-debug.log*
 lerna-debug.log*
 
 .env.local
-
+build
+.firebaserc
+firebase.json
+.firebase
 node_modules
 dist
 dist-ssr

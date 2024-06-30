@@ -16,6 +16,7 @@ import Concert from './components/concert.jsx';
 import Party from './components/parties.jsx';
 import Standup from './components/standup.jsx';
 import MovieNight from './components/movie.jsx';
+import Games from './components/game.jsx';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 if (!PUBLISHABLE_KEY) {
@@ -67,6 +68,7 @@ export  default function ClerkWithRoutes(){
           <Route path = "/party" element= {<Party/>}/>
           <Route path = "/standup" element= {<Standup/>}/>
           <Route path = "/movie" element= {<MovieNight/>}/>
+          <Route path = "/games" element= {<Games/>}/>
         </Routes>
         
         
