@@ -1,96 +1,201 @@
-
-/* .back {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+.sell-form {
+  margin-top: 55px;
+  align-items: right;
+  padding-left: 450px;
+  
 }
 
-.sell-form {
+.animation-container {
+  position: fixed;
+  z-index: -2;
+  left: 0;
+  padding-left: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
+.input-row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin: 50px auto;
-  width: 400px;
+  justify-content: space-between;
+  margin-bottom: 55px;
+  
 }
 
 .input-group {
-  margin-bottom: 15px;
+  display: flex;
+  flex: 2;
+  margin-right: 10px; 
 }
 
-.input-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.input-group input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+.description-group {
   width: 100%;
+  margin-bottom: 50px; 
 }
 
-.dropzone {
-  border: 2px dashed #ddd;
-  padding: 20px;
-  text-align: center;
-  margin-bottom: 15px;
-  cursor: pointer;
+.brutalist-container {
+  position: relative;
+  width: 100%;
+  font-family: monospace;
 }
 
-.dropzone p {
-  color: #aaa;
-}
-
-.preview-container {
-  margin-top: 10px;
-}
-
-button[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background-color: #45A049;
-}
-
-a {
-  text-decoration: none;
-  color: #007bff;
-  margin-top: 10px;
-}
-
-
-
-.sell-form {
-  margin-right: 0px;
-  height: 660px;
-  background-color: #ffffffde;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.input-group label {
-  color: #4CAF50;
-} */
-
-/* .input-group input:focus {
+.brutalist-input {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  background-color: #fff;
+  border: 4px solid #000;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
   outline: none;
-  border-color: #4CAF50;
-} */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 5px 5px 0 #000, 10px 10px 0 #e24a4a;
+}
 
+.brutalist-input:focus {
+  animation: focus-pulse 4s cubic-bezier(0.25, 0.8, 0.25, 1) infinite,
+    glitch 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+}
+
+.brutalist-input:focus::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: white;
+  z-index: -1;
+}
+
+.brutalist-input:focus::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: -2;
+  clip-path: inset(0 100% 0 0);
+  animation: glitch-slice 4s steps(2, end) infinite;
+}
+
+@keyframes glitch-slice {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  10% {
+    clip-path: inset(0 5% 0 0);
+  }
+  20% {
+    clip-path: inset(0 80% 0 0);
+  }
+  30% {
+    clip-path: inset(0 10% 0 0);
+  }
+  40% {
+    clip-path: inset(0 50% 0 0);
+  }
+  50% {
+    clip-path: inset(0 30% 0 0);
+  }
+  60% {
+    clip-path: inset(0 70% 0 0);
+  }
+  70% {
+    clip-path: inset(0 15% 0 0);
+  }
+  80% {
+    clip-path: inset(0 90% 0 0);
+  }
+  90% {
+    clip-path: inset(0 5% 0 0);
+  }
+  100% {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+.brutalist-label {
+  position: absolute;
+  left: -3px;
+  top: -35px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #000;
+  padding: 5px 10px;
+  transform: rotate(-1deg);
+  z-index: 1;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.brutalist-input:focus + .brutalist-label {
+  transform: rotate(0deg) scale(1.05);
+  background-color: #4a90e2;
+}
+
+.smooth-type {
+  position: relative;
+  overflow: hidden;
+}
+
+.smooth-type::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.smooth-type:focus::before {
+  opacity: 1;
+  animation: type-gradient 2s linear infinite;
+}
+
+@keyframes type-gradient {
+  0% {
+    background-position: 300px 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.brutalist-input::placeholder {
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.brutalist-input:focus::placeholder {
+  color: transparent;
+}
+
+.brutalist-input:focus {
+  animation: focus-pulse 4s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+}
+
+@keyframes focus-pulse {
+  0%,
+  100% {
+    border-color: #000;
+  }
+  50% {
+    border-color: #4a90e2;
+  }
+}
 
 .image-preview {
   max-width: 200px;
-  height: 200px; 
+  height: 200px;
   margin-top: 10px;
 }
 
@@ -98,7 +203,6 @@ a {
   position: relative;
   margin-top: 10px;
 }
-
 
 .delete-icon {
   position: absolute;
@@ -108,18 +212,7 @@ a {
   color: red;
   font-size: 20px;
 }
-.sell-form {
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  height: 100vh;
+
+.ant-upload-text {
+  margin-top: 8px;
 }
-
-.animation-container {
-  position: fixed;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-
