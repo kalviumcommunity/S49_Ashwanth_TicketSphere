@@ -31,11 +31,11 @@ export default function Navbar() {
                             <Link to="/admin">Admin</Link>
                         </Button>
                     )}
-                    <Link to="/dashboard" className="comic-button">
+                    <Link to="/dashboard" className="dash-comic-button">
                         <b>Dashboard</b>
                     </Link>
                 </SignedIn>
-                <Link to="/sellpage" className="comic-button">
+                <Link to="/sellpage" className="sell-comic-button">
                     <b>Sell your Ticket!</b>
                 </Link>
                 <UserButton afterSignOut={handleAfterSignOut} />
