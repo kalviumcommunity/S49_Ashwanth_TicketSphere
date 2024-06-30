@@ -21,7 +21,7 @@ export default function Navbar() {
             </Link>
             <div className="nav-links">
                 <SignedOut>
-                    <Link to="/sign-in" className="comic-button">
+                    <Link to="/sign-in" className="dash-comic-button">
                         <b>Login</b>
                     </Link>
                 </SignedOut>

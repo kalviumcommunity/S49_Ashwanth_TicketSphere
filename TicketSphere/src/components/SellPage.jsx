@@ -248,10 +248,9 @@ export default function SellPage() {
               )}
             </div>
           </div>
-          <Button type="primary" htmlType="submit">
-            Sell Ticket
-          </Button>
+          <button class="card__button" htmlType="submit">Sell Ticket</button>
         </form>
+        <br />
       </div>
     </>
   );
