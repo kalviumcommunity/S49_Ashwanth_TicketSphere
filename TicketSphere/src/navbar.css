@@ -30,26 +30,12 @@
     margin-right: 10px; 
   }
   
-  .login,
-  .sell {
-    color: white;
-  }
-  
-  .login {
-    background-color: white;
-    width: 150px;
-  }
-  
   .sell {
     background-color: red;
     width: 200px;
   }
   
-  .login:hover,
-  .sell:hover {
-    background-color: #555; 
-  }
-  .comic-button {
+  .dash-comic-button {
     display: inline-block;
     padding: 10px 20px;
     font-size: 20px;
@@ -68,14 +54,48 @@
     font-size: 15px;  
   }
   
-  .comic-button:hover {
+  .dash-comic-button:hover {
     background-color: #fff;
     color: #ff5252;
     border: 2px solid #ff5252;
     box-shadow: 5px 5px 0px #ff5252;
   }
   
-  .comic-button:active {
+  .dash-comic-button:active {
+    background-color: #f3c66d;
+    box-shadow: none;
+    transform: translateY(4px);
+  }
+
+
+
+  .sell-comic-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff5252;
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px #000;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 18px;
+    width: 150px;
+    font-size: 15px;  
+  }
+  
+  .sell-comic-button:hover {
+    background-color: #fff;
+    color: #ff5252;
+    border: 2px solid #ff5252;
+    box-shadow: 5px 5px 0px #ff5252;
+  }
+  
+  .sell-comic-button:active {
     background-color: #f3c66d;
     box-shadow: none;
     transform: translateY(4px);
@@ -121,20 +141,28 @@
   width: 100%;
   filter: drop-shadow(0 0 23px var(--animation-color))
 }
-@media only screen and (max-width: 1284px) {
-  .nav-links a {
-    font-size: 0.9rem; 
-    margin-right: 5px; 
+
+
+@media only screen and (max-width: 430px) {
+  .nav {
+    width: 100%;
+    height: 40px;
   }
-}
-@media only screen and (max-width: 1284px) {
-  .site-title {
-    font-size: 1.2rem; 
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
   }
-}
-@media only screen and (max-width: 1284px) {
-  .comic-button {
-    width: 120px;
-    padding: 8px 15px;
+
+  .nav-links > * {
+    margin-right: 0;
+    margin-bottom: 10px; 
+  }
+
+  .sell-comic-button {
+    display: inline-block;
+  }
+
+  .nav-links > *:not(.sell-comic-button) { 
+    display: none;
   }
 }
