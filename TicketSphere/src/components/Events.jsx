@@ -57,7 +57,11 @@ const Events = () => {
     setSelectedEvent(event);
     setIsModalVisible(true);
   };
-
+  const eventExpired = (eventDate) => {
+    const now = new Date();
+    const eventDateTime = new Date(eventDate);
+    return eventDateTime < now;
+  };
   const handleCloseModal = () => {
     setIsModalVisible(false);
   };
@@ -108,35 +112,45 @@ const Events = () => {
           <Select.Option value="Standup">Standup</Select.Option>
           <Select.Option value="Movie Night">Movie Night</Select.Option>
           <Select.Option value="Game Night">Game Night</Select.Option>
-          <Select.Option value="Food Festival">Food Festival</Select.Option>
         </Select>
       </div>
       <br />
       <h3>‎ ‎ </h3>
       <div className="event-list">
-        {filteredTickets.map((ticket, index) => (
-          <motion.div
-            key={ticket._id}
-            drag
-            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            whileHover={{ scale: 1.05 }}
-            onClick={() => handleOpenModal(ticket)}
-          >
-            <div className="card">
-              <div className="card2">
-                {ticket.poster && <img src={ticket.poster} alt={ticket.eventName} className="event-card-image" draggable={false} />}
-                <div className="card-content">
-                  <h3>{ticket.eventName}</h3>
-                  <p>₹ {ticket.price}</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+  {filteredTickets.map((ticket, index) => (
+    <motion.div
+      key={ticket._id}
+      className={`card ${eventExpired(ticket.date) ? 'expired' : ''}`}
+      drag
+      dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ scale: 1.05 }}
+      onClick={() => handleOpenModal(ticket)}
+    >
+      {eventExpired(ticket.date) && (
+        <div className="expired-overlay">
+          <p className="expired-text">Expired/Sold Out</p>
+        </div>
+      )}
+      <div className="card2">
+        {ticket.poster && (
+          <img
+            src={ticket.poster}
+            alt={ticket.eventName}
+            className="event-card-image"
+            draggable={false}
+          />
+        )}
+        <div className="card-content">
+          <h3>{ticket.eventName}</h3>
+          <p>₹ {ticket.price}</p>
+        </div>
       </div>
+    </motion.div>
+  ))}
+</div>
 
       <Modal
         title="Event Details"

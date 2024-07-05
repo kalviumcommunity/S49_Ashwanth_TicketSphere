@@ -221,7 +221,7 @@ const Dashboard = () => {
                   </div>
                   <Meta
                     title={ticket.eventName}
-                    description={`Location: ${ticket.location}, Price: ₹ ${ticket.totalPrice}, Category: ${ticket.category}, Quantity: ${ticket.remainingQuantity}`}
+                    description={`Location: ${ticket.location}, Price: ₹ ${ticket.totalPrice}, Category: ${ticket.category}, Quantity: ${ticket.quantity}`}
                   />
                 </Card>
               ))
