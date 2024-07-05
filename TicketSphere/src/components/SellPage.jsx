@@ -8,6 +8,7 @@ import Lottie from 'lottie-react';
 import animationData from '../lottie/Sellpage_anim.json';
 import { useUser } from '@clerk/clerk-react';
 import { DatePicker, Button, Upload, Input } from 'antd';
+import { EnvironmentOutlined } from '@ant-design/icons';
 
 export default function SellPage() {
   const [eventName, setEventName] = useState('');
@@ -27,7 +28,6 @@ export default function SellPage() {
     'Standup',
     'Movie Night',
     'Game Night',
-    'Food Festival',
   ];
   const [quantity, setQuantity] = useState(1);
 
@@ -124,6 +124,7 @@ export default function SellPage() {
                   value={eventLocation}
                   onChange={(e) => setEventLocation(e.target.value)}
                   required
+                  suffix={<EnvironmentOutlined />}
                 />
                 <label className="brutalist-label">Event Location</label>
               </div>
@@ -199,7 +200,7 @@ export default function SellPage() {
           <div className="input-group description-group">
             <div className="brutalist-container">
               <Input.TextArea
-                placeholder="Please provide a brief description of the event."
+                placeholder="Please provide a brief description of the event. Also inlcude details about the loaction of the event"
                 className="brutalist-input smooth-type"
                 id="description"
                 value={description}
