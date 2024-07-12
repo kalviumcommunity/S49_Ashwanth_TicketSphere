@@ -22,7 +22,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/tickets');
+        const response = await axios.get('https://ticketsphere.onrender.com/tickets');
         setTickets(response.data);
       } catch (error) {
         console.error('Error fetching tickets:', error);
@@ -33,7 +33,7 @@ const Dashboard = () => {
 
     const fetchBoughtTickets = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/buys', {
+        const response = await axios.get('https://ticketsphere.onrender.com/buys', {
           params: { buyerName: user.fullName || user.username }
         });
         setBoughtTickets(response.data);
@@ -59,10 +59,10 @@ const Dashboard = () => {
 
   const handleEdit = async (ticketId, editedValues) => {
     try {
-      await axios.put(`http://localhost:3000/tickets/${ticketId}`, editedValues);
+      await axios.put(`https://ticketsphere.onrender.com/tickets/${ticketId}`, editedValues);
       message.success('Ticket updated successfully');
       setIsEditModalVisible(false);
-      const response = await axios.get('http://localhost:3000/tickets');
+      const response = await axios.get('https://ticketsphere.onrender.com/tickets');
       setTickets(response.data);
     } catch (error) {
       console.error('Error updating ticket:', error);
@@ -77,10 +77,10 @@ const Dashboard = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3000/tickets/${selectedTicketId}`);
+      await axios.delete(`https://ticketsphere.onrender.com/tickets/${selectedTicketId}`);
       message.success('Ticket unlisted successfully');
       setIsDeleteModalVisible(false);
-      const response = await axios.get('http://localhost:3000/tickets');
+      const response = await axios.get('https://ticketsphere.onrender.com/tickets');
       setTickets(response.data);
     } catch (error) {
       console.error('Error deleting ticket:', error);

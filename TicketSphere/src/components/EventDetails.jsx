@@ -28,7 +28,7 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/tickets/${id}`);
+        const response = await axios.get(`https://ticketsphere.onrender.com/tickets/${id}`);
         setEvent(response.data);
         setTimeout(() => {
           setLoading(false);
@@ -66,9 +66,9 @@ const EventDetails = () => {
   
       console.log('Transaction Data:', transactionData); 
   
-      await axios.post('http://localhost:3000/buys', transactionData);
+      await axios.post('https://ticketsphere.onrender.com/buys', transactionData);
   
-      await axios.put(`http://localhost:3000/update-quantity/${event._id}`, { quantity: selectedValues.quantity });
+      await axios.put(`https://ticketsphere.onrender.com/update-quantity/${event._id}`, { quantity: selectedValues.quantity });
   
       toast.success('Ticket successfully bought!', {
         autoClose: 1200,

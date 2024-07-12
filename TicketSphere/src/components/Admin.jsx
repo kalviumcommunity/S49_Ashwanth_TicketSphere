@@ -10,7 +10,7 @@ function Admin() {
   useEffect(() => {
     const fetchBuys = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/buys');
+        const response = await axios.get('https://ticketsphere.onrender.com/buys');
         setBuys(response.data);
       } catch (error) {
         console.error('Error fetching buy data:', error);

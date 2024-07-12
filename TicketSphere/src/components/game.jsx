@@ -16,7 +16,7 @@ const Games = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/tickets');
+        const response = await axios.get('https://ticketsphere.onrender.com/tickets');
         const gameTickets = response.data.filter(ticket => ticket.category === 'Game Night');
         setTickets(gameTickets);
         setLoading(false); 
