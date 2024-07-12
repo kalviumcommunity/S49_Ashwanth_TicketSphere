@@ -9,6 +9,8 @@ import animationData from '../lottie/Sellpage_anim.json';
 import { useUser } from '@clerk/clerk-react';
 import { DatePicker, Button, Upload, Input } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons';
+import { imageDB } from './config';
+import { ref } from 'firebase/storage';
 
 export default function SellPage() {
   const [eventName, setEventName] = useState('');
@@ -61,7 +63,7 @@ export default function SellPage() {
     formData.append('quantity', quantity);
 
     try {
-      const response = await axios.post('http://localhost:3000/sell', formData);
+      const response = await axios.post('https://ticketsphere.onrender.com/sell', formData);
       console.log(response);
       toast.success('Event listed Successfully!', {
         position: 'top-right',

@@ -25,7 +25,7 @@
     useEffect(() => {
       const fetchTickets = async () => {
         try {
-          const response = await axios.get('http://localhost:3000/tickets');
+          const response = await axios.get('https://ticketsphere.onrender.com/tickets');
           const shuffledTickets = response.data.sort(() => Math.random() - 0.5);
           setTickets(shuffledTickets);
           setLoading(false);
