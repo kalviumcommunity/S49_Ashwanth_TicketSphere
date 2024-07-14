@@ -175,9 +175,11 @@ const EventDetails = () => {
                   <p>Total Price: ₹{(event.price * quantity).toFixed(2)}</p>
                   <Alert message="Please proceed with payment only if you have already spoken to the seller." type="warning" />
                   <br />
-                  <Button type="primary" onClick={handleConfirm}>
-                    Confirm
-                  </Button>
+                  <div class="button-borders">
+                    <button class="primary-button" type="primary"onClick={handleConfirm}> 
+                      Confirm
+                    </button>
+                  </div>
                   
                 </div>
               ) : (
