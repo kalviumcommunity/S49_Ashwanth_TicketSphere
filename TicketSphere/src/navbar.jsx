@@ -16,8 +16,10 @@ export default function Navbar() {
     return (
         <nav className="nav">
             <Link to="/">
-                <img src="./logo/ticket2.png" alt="" />
-                <b className="site-title">TicketSphere</b>
+                <img src="./src/ticket2.png" alt="" />
+            </Link>
+            <Link to="/">
+            <b className="site-title">TicketSphere</b>
             </Link>
             <div className="nav-links">
                 <SignedOut>
