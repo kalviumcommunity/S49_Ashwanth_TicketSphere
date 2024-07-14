@@ -9,8 +9,6 @@ import animationData from '../lottie/Sellpage_anim.json';
 import { useUser } from '@clerk/clerk-react';
 import { DatePicker, Button, Upload, Input } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons';
-import { imageDB } from './config';
-import { ref } from 'firebase/storage';
 
 export default function SellPage() {
   const [eventName, setEventName] = useState('');
