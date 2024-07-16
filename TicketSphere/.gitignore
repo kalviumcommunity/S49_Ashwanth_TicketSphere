@@ -13,7 +13,7 @@ build
 firebase.json
 .firebase
 node_modules
-dist
+
 dist-ssr
 *.local
 
