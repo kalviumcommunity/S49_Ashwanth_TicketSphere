@@ -15,7 +15,7 @@
     font-size: 1.5rem; 
     color: white; 
     text-decoration: none; 
-    margin-left: -740px;
+    margin-left: -840px;
   }
   
   .nav-links {
@@ -141,29 +141,4 @@
 .title:hover .hover-text {
   width: 100%;
   filter: drop-shadow(0 0 23px var(--animation-color))
-}
-
-
-@media only screen and (max-width: 430px) {
-  .nav {
-    width: 100%;
-    height: 40px;
-  }
-  .nav-links {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav-links > * {
-    margin-right: 0;
-    margin-bottom: 10px; 
-  }
-
-  .sell-comic-button {
-    display: inline-block;
-  }
-
-  .nav-links > *:not(.sell-comic-button) { 
-    display: none;
-  }
 }

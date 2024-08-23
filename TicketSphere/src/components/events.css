@@ -181,6 +181,7 @@
 .expired-text {
   margin: 0;
   font-weight: bold;
+  color: red;
 }
 
 .card.expired {

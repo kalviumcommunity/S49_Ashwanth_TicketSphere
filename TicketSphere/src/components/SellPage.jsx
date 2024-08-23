@@ -7,8 +7,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import Lottie from 'lottie-react';
 import animationData from '../lottie/Sellpage_anim.json';
 import { useUser } from '@clerk/clerk-react';
-import { DatePicker, Button, Upload, Input } from 'antd';
+import { DatePicker, Input, Upload } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = 'https://etkeoqwiiudcgbfocxjj.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0a2VvcXdpaXVkY2diZm9jeGpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQzOTQxMjQsImV4cCI6MjAzOTk3MDEyNH0.TlnKIzRFxa8bQivcTc1nB-rwXnsolnG4_ZXSgAvkl6Q';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function SellPage() {
   const [eventName, setEventName] = useState('');
@@ -42,38 +48,63 @@ export default function SellPage() {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-
+  
+    if (!file) {
+      toast.error('Please select an image to upload.');
+      return;
+    }
+  
     const formattedDate = date ? date.toISOString().split('T')[0] : null;
-
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('eventName', eventName);
-    formData.append('eventLocation', eventLocation);
-    formData.append('price', price);
-    formData.append('category', category);
-    formData.append(
-      'sellerName',
-      user.fullName ? user.fullName : user.username
-    );
-    formData.append('description', description);
-    formData.append('date', formattedDate);
-    formData.append('phoneNumber', phoneNumber);
-    formData.append('quantity', quantity);
-
+  
     try {
-      const response = await axios.post('https://ticketsphere.onrender.com/sell', formData);
+      // Upload image to Supabase storage
+      const { data, error } = await supabase.storage
+        .from('Posters')
+        .upload(`public/${Date.now()}_${file.name}`, file);
+  
+      if (error) {
+        throw error;
+      }
+  
+      const { publicURL, error: urlError } = supabase.storage
+        .from('Posters')
+        .getPublicUrl(data.path);
+        
+
+      if (urlError) {
+        throw urlError;
+      }
+
+      const imageUrl = publicURL;
+  
+      const eventData = {
+        eventName,
+        eventLocation,
+        price,
+        category,
+        sellerName: user.fullName ? user.fullName : user.username,
+        description,
+        date: formattedDate,
+        phoneNumber,
+        quantity,
+        poster: imageUrl,
+      };
+  
+      const response = await axios.post('https://ticketsphere.onrender.com/sell', eventData);
+  
       console.log(response);
-      toast.success('Event listed Successfully!', {
+      toast.success('Event listed successfully!', {
         position: 'top-right',
         autoClose: 1500,
         hideProgressBar: false,
       });
+  
       setTimeout(() => {
         window.location.href = '/dashboard';
       }, 2000);
     } catch (err) {
       console.error(err);
-      toast.error('Please enter all the required details', {
+      toast.error('Failed to upload image or event details.', {
         position: 'top-right',
         autoClose: 1500,
         hideProgressBar: false,
@@ -200,7 +231,7 @@ export default function SellPage() {
           <div className="input-group description-group">
             <div className="brutalist-container">
               <Input.TextArea
-                placeholder="Please provide a brief description of the event. Also inlcude details about the loaction of the event"
+                placeholder="Please provide a brief description of the event. Also include details about the location of the event."
                 className="brutalist-input smooth-type"
                 id="description"
                 value={description}
@@ -234,6 +265,7 @@ export default function SellPage() {
                 <p className="ant-upload-text">
                   Drag & drop or click to select an event poster
                 </p>
+                <input {...getInputProps()} />
               </Upload.Dragger>
               {imagePreview && (
                 <div className="image-preview-container">
@@ -249,7 +281,7 @@ export default function SellPage() {
               )}
             </div>
           </div>
-          <button class="card__button" htmlType="submit">Sell Ticket</button>
+          <button className="card__button" type="submit">Sell Ticket</button>
         </form>
         <br />
       </div>
