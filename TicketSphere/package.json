@@ -23,6 +23,7 @@
     "@mui/material": "^5.15.15",
     "@nextui-org/react": "^2.2.10",
     "@remixicon/react": "^4.2.0",
+    "@supabase/supabase-js": "^2.45.1",
     "@tremor/react": "^3.17.2",
     "antd": "^5.18.3",
     "axios": "^1.6.8",
