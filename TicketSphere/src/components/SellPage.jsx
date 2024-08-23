@@ -11,7 +11,6 @@ import { DatePicker, Input, Upload } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons';
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
 const supabaseUrl = 'https://etkeoqwiiudcgbfocxjj.supabase.co';
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0a2VvcXdpaXVkY2diZm9jeGpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQzOTQxMjQsImV4cCI6MjAzOTk3MDEyNH0.TlnKIzRFxa8bQivcTc1nB-rwXnsolnG4_ZXSgAvkl6Q';
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
@@ -57,7 +56,7 @@ export default function SellPage() {
     const formattedDate = date ? date.toISOString().split('T')[0] : null;
   
     try {
-      // Upload image to Supabase storage
+
       const { data, error } = await supabase.storage
         .from('Posters')
         .upload(`public/${Date.now()}_${file.name}`, file);
@@ -65,17 +64,14 @@ export default function SellPage() {
       if (error) {
         throw error;
       }
+
+      const { data: urlInfo } = supabase.storage.from('Posters').getPublicUrl(data.path);
   
-      const { publicURL, error: urlError } = supabase.storage
-        .from('Posters')
-        .getPublicUrl(data.path);
-        
-
-      if (urlError) {
-        throw urlError;
+      if (!urlInfo) {
+        throw new Error('Failed to get image URL');
       }
-
-      const imageUrl = publicURL;
+      
+      const imageUrl = urlInfo.publicUrl;
   
       const eventData = {
         eventName,
@@ -87,7 +83,7 @@ export default function SellPage() {
         date: formattedDate,
         phoneNumber,
         quantity,
-        poster: imageUrl,
+        poster: imageUrl, 
       };
   
       const response = await axios.post('https://ticketsphere.onrender.com/sell', eventData);
@@ -111,7 +107,6 @@ export default function SellPage() {
       });
     }
   };
-
   const handleImageDelete = () => {
     setFile(null);
     setImagePreview(null);

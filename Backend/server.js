@@ -1,30 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Event = require('./models/event');
-const eventSchema = require('./models/event');
 const cors = require('cors');
 require('dotenv').config();
-const multer = require('multer');
-const path = require('path');
 const Clerk = require("@clerk/clerk-sdk-node");
 const Buy = require('./models/buy');
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
 app.use(cors());
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/Images');
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage });
 
 app.get('/', (req, res) => {
   res.send('TicketSphere');
@@ -40,21 +25,32 @@ app.get('/tickets', async (req, res) => {
   }
 });
 
-app.post('/sell', upload.single('file'), async (req, res) => {
-  const imagePath = req.file ? `${req.protocol}://${req.get('host')}/Images/${req.file.filename}` : '';
+app.post('/sell', async (req, res) => {
+  const { 
+    eventName, 
+    eventLocation, 
+    price, 
+    poster,
+    category, 
+    sellerName = "Anonymous", 
+    description, 
+    date, 
+    phoneNumber, 
+    quantity 
+  } = req.body;
 
   const newEvent = new Event({
-    eventName: req.body.eventName,
-    eventLocation: req.body.eventLocation,
-    price: req.body.price,
-    poster: imagePath,
-    category: req.body.category,
-    sellerName: req.body.sellerName || "Anonymous",
-    description: req.body.description,
-    date: req.body.date,
-    phoneNumber: req.body.phoneNumber,
-    initialQuantity: req.body.quantity,
-    remainingQuantity: req.body.quantity,
+    eventName,
+    eventLocation,
+    price,
+    poster,
+    category,
+    sellerName,
+    description,
+    date,
+    phoneNumber,
+    initialQuantity: quantity,
+    remainingQuantity: quantity,
   });
 
   try {
@@ -82,10 +78,9 @@ app.put('/update-quantity/:id', async (req, res) => {
   }
 });
 
-
 app.post('/buys', async (req, res) => {
   try {
-    const { eventName, sellerName, buyerName, location, category, quantity, totalPrice,poster } = req.body;
+    const { eventName, sellerName, buyerName, location, category, quantity, totalPrice, poster } = req.body;
 
     const newTransaction = new Buy({
       eventName,
@@ -108,7 +103,6 @@ app.post('/buys', async (req, res) => {
   }
 });
 
-
 app.get('/buys', async (req, res) => {
   try {
     const boughtTickets = await Buy.find();
@@ -118,8 +112,6 @@ app.get('/buys', async (req, res) => {
     res.status(500).send('Error fetching bought tickets.');
   }
 });
-
-
 
 app.get('/tickets/:id', async (req, res) => {
   try {
