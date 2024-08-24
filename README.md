@@ -18,7 +18,7 @@ The objective of TicketSphere is to address the need for a reliable and accessib
 
 - **Frontend**: HTML, CSS, JavaScript, React.js
 - **Backend**: Node.js, Express.js, Multer
-- **Database**: MongoDB
+- **Database**: MongoDB, Supabase
 - **Authentication**: Clerk
 - **Payment Gateway Integration**: Google Pay
 
