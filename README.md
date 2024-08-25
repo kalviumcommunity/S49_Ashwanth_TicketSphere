@@ -14,6 +14,12 @@ The objective of TicketSphere is to address the need for a reliable and accessib
 4. **Ticket Management**: Sellers can manage their listings, while buyers can view purchased tickets.
 5. **Notifications**: Receive updates on important events and transactions.
 
+## The Website
+
+![Home Page](./images/Home.png)
+
+![Sell Page](./images/Sell.png)
+
 ## Tech Stack
 
 - **Frontend**: HTML, CSS, JavaScript, React.js
